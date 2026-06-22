@@ -45,254 +45,84 @@ body {
 #header .weather { color: #a0c4ff; }
 #header .km { color: #90ee90; }
 
-#progress-bar {
-  background: #1a0e00;
-  height: 8px;
-  width: 100%;
-  position: relative;
-}
+#progress-bar { background: #1a0e00; height: 8px; width: 100%; }
+#progress-fill { background: linear-gradient(90deg, #8b6914, #d4a843); height: 100%; width: 0%; transition: width 0.5s; }
 
-#progress-fill {
-  background: linear-gradient(90deg, #8b6914, #d4a843);
-  height: 100%;
-  width: 0%;
-  transition: width 0.5s;
-}
-
-#main-content {
-  padding: 20px;
-  min-height: 420px;
-  display: flex;
-  flex-direction: column;
-}
-
-#text-area {
-  flex: 1;
-  margin-bottom: 15px;
-  line-height: 1.6;
-  overflow-y: auto;
-  max-height: 350px;
-}
-
-#choices {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+#main-content { padding: 20px; min-height: 420px; display: flex; flex-direction: column; }
+#text-area { flex: 1; margin-bottom: 15px; line-height: 1.6; overflow-y: auto; max-height: 380px; }
+#choices { display: flex; flex-direction: column; gap: 8px; }
 
 .choice-btn {
-  background: #3a2410;
-  color: #e8d5b0;
-  border: 2px solid #8b6914;
-  padding: 10px 20px;
-  font-family: 'VT323', monospace;
-  font-size: 20px;
-  cursor: pointer;
-  text-align: left;
-  border-radius: 4px;
-  transition: all 0.2s;
+  background: #3a2410; color: #e8d5b0; border: 2px solid #8b6914;
+  padding: 10px 20px; font-family: 'VT323', monospace; font-size: 20px;
+  cursor: pointer; text-align: left; border-radius: 4px; transition: all 0.2s;
 }
-
-.choice-btn:hover {
-  background: #8b6914;
-  color: #1a0e00;
-}
-
-.choice-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
+.choice-btn:hover { background: #8b6914; color: #1a0e00; }
+.choice-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
 #footer {
-  background: #3a2410;
-  border-top: 2px solid #8b6914;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
-  font-size: 16px;
-  flex-wrap: wrap;
-  gap: 5px;
+  background: #3a2410; border-top: 2px solid #8b6914;
+  padding: 10px 20px; display: flex; justify-content: space-between;
+  font-size: 16px; flex-wrap: wrap; gap: 5px;
 }
 
 .stat { color: #d4a843; }
 .stat-val { color: #fff; }
-
-.title-text {
-  font-family: 'Press Start 2P', cursive;
-  color: #d4a843;
-  text-align: center;
-}
-
-.section-title {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 14px;
-  color: #d4a843;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
+.title-text { font-family: 'Press Start 2P', cursive; color: #d4a843; text-align: center; }
+.section-title { font-family: 'Press Start 2P', cursive; font-size: 14px; color: #d4a843; margin-bottom: 15px; text-align: center; }
 .event-text { color: #ffa500; }
 .danger-text { color: #ff6b6b; }
 .success-text { color: #90ee90; }
 .relation-text { color: #ff69b4; }
+.romance-text { color: #ff1493; }
+.baby-text { color: #ffd700; }
 .info-text { color: #a0c4ff; }
 
 .input-field {
-  background: #1a0e00;
-  color: #e8d5b0;
-  border: 2px solid #8b6914;
-  padding: 8px 12px;
-  font-family: 'VT323', monospace;
-  font-size: 20px;
-  border-radius: 4px;
-  width: 100%;
-  margin: 5px 0;
+  background: #1a0e00; color: #e8d5b0; border: 2px solid #8b6914;
+  padding: 8px 12px; font-family: 'VT323', monospace; font-size: 20px;
+  border-radius: 4px; width: 100%; margin: 5px 0;
 }
+.input-field:focus { outline: none; border-color: #d4a843; }
 
-.input-field:focus {
-  outline: none;
-  border-color: #d4a843;
+.gender-select {
+  display: inline-flex; gap: 5px; margin: 5px 0;
 }
+.gender-btn {
+  background: #1a0e00; color: #e8d5b0; border: 2px solid #5a3a10;
+  padding: 5px 15px; font-family: 'VT323', monospace; font-size: 18px;
+  cursor: pointer; border-radius: 4px; transition: all 0.2s;
+}
+.gender-btn.selected { border-color: #d4a843; background: #3a2410; color: #d4a843; }
+.gender-btn:hover { border-color: #8b6914; }
 
 .person-card {
-  background: #1a0e00;
-  border: 1px solid #5a3a10;
-  border-radius: 4px;
-  padding: 8px 12px;
-  margin: 5px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 5px;
+  background: #1a0e00; border: 1px solid #5a3a10; border-radius: 4px;
+  padding: 8px 12px; margin: 5px 0; display: flex;
+  justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 5px;
 }
 
-.health-bar {
-  background: #3a2410;
-  width: 80px;
-  height: 10px;
-  border-radius: 5px;
-  overflow: hidden;
-  display: inline-block;
-  vertical-align: middle;
-}
+.health-bar { background: #3a2410; width: 80px; height: 10px; border-radius: 5px; overflow: hidden; display: inline-block; vertical-align: middle; }
+.health-fill { height: 100%; transition: width 0.3s; }
+.rel-bar { background: #3a2410; width: 60px; height: 8px; border-radius: 4px; overflow: hidden; display: inline-block; vertical-align: middle; }
+.rel-fill { height: 100%; background: linear-gradient(90deg, #ff69b4, #ff1493); transition: width 0.3s; }
 
-.health-fill {
-  height: 100%;
-  transition: width 0.3s;
-}
-
-.rel-bar {
-  background: #3a2410;
-  width: 60px;
-  height: 8px;
-  border-radius: 4px;
-  overflow: hidden;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.rel-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #ff69b4, #ff1493);
-  transition: width 0.3s;
-}
-
-.save-indicator {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #3a2410;
-  border: 1px solid #8b6914;
-  padding: 8px 15px;
-  border-radius: 4px;
-  opacity: 0;
-  transition: opacity 0.3s;
-  z-index: 100;
-}
-
+.save-indicator { position: fixed; top: 20px; right: 20px; background: #3a2410; border: 1px solid #8b6914; padding: 8px 15px; border-radius: 4px; opacity: 0; transition: opacity 0.3s; z-index: 100; }
 .save-indicator.show { opacity: 1; }
 
-.store-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px;
-  margin: 5px 0;
-  background: #1a0e00;
-  border-radius: 4px;
-}
-
-.store-item button {
-  background: #8b6914;
-  color: #1a0e00;
-  border: none;
-  padding: 4px 12px;
-  font-family: 'VT323', monospace;
-  font-size: 18px;
-  cursor: pointer;
-  border-radius: 3px;
-  margin: 0 3px;
-}
-
+.store-item { display: flex; justify-content: space-between; align-items: center; padding: 8px; margin: 5px 0; background: #1a0e00; border-radius: 4px; }
+.store-item button { background: #8b6914; color: #1a0e00; border: none; padding: 4px 12px; font-family: 'VT323', monospace; font-size: 18px; cursor: pointer; border-radius: 3px; margin: 0 3px; }
 .store-item button:hover { background: #d4a843; }
+.qty-display { display: inline-block; width: 40px; text-align: center; color: #fff; }
 
-.qty-display {
-  display: inline-block;
-  width: 40px;
-  text-align: center;
-  color: #fff;
-}
-
-.map-landmark {
-  padding: 3px 10px;
-  border-left: 2px solid #5a3a10;
-  margin: 2px 0;
-  font-size: 18px;
-}
+.map-landmark { padding: 3px 10px; border-left: 2px solid #5a3a10; margin: 2px 0; font-size: 18px; }
 .map-landmark.visited { border-left-color: #90ee90; color: #90ee90; }
 .map-landmark.current { border-left-color: #d4a843; color: #d4a843; font-weight: bold; }
 .map-landmark.future { color: #7a6a50; }
 
-.hunting-area {
-  text-align: center;
-  padding: 20px;
-  font-size: 40px;
-}
-
-#overlay {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.8);
-  z-index: 50;
-  justify-content: center;
-  align-items: center;
-}
-
-#overlay.show { display: flex; }
-
-#overlay-content {
-  background: #2a1a08;
-  border: 3px solid #8b6914;
-  border-radius: 8px;
-  padding: 25px;
-  max-width: 500px;
-  width: 90%;
-  max-height: 80vh;
-  overflow-y: auto;
-}
-
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
 @media (max-width: 600px) {
   body { font-size: 16px; }
   .choice-btn { font-size: 16px; padding: 8px 12px; }
-  .two-col { grid-template-columns: 1fr; }
   .section-title { font-size: 11px; }
   .title-text { font-size: 10px; }
 }
@@ -301,10 +131,6 @@ body {
 <body>
 
 <div id="save-indicator" class="save-indicator">Partida guardada</div>
-
-<div id="overlay">
-  <div id="overlay-content"></div>
-</div>
 
 <div id="game-container">
   <div id="header">
@@ -362,13 +188,8 @@ const ANIMALES = [
   {nombre:"oso",comida:80,dificultad:3,emoji:"🐻"},
 ];
 
-const RELACION_EVENTOS = [
-  {min:0,max:20,texto:"{name} esta resentido/a y apenas habla con el grupo.",efecto:"negativo"},
-  {min:21,max:40,texto:"{name} se muestra distante y frio/a.",efecto:"neutro"},
-  {min:60,max:75,texto:"{name} comparte historias junto al fuego con el grupo.",efecto:"positivo"},
-  {min:76,max:90,texto:"{name} y tu se han vuelto grandes amigos. Se cuidan mutuamente.",efecto:"positivo"},
-  {min:91,max:100,texto:"{name} confia ciegamente en ti. Daria la vida por el grupo.",efecto:"muy_positivo"},
-];
+const NOMBRES_BEBE_M = ["James","William","John","Henry","Thomas","Samuel","George","Daniel","Joseph","Benjamin"];
+const NOMBRES_BEBE_F = ["Mary","Elizabeth","Sarah","Martha","Margaret","Emily","Charlotte","Abigail","Hannah","Rebecca"];
 
 const PROFESIONES = [
   {nombre:"Banquero de Boston",dinero:1600,mult:1},
@@ -387,21 +208,29 @@ function nuevoJuego() {
   G = {
     grupo: [],
     profesion: null,
-    dinero: 0,
-    comida: 0,
-    balas: 0,
-    ropa: 0,
-    bueyes: 0,
-    repuestos: 0,
-    km: 0,
-    dia: 0,
-    diaInicio: 0,
-    ritmo: "normal",
-    raciones: "normal",
-    sigLandmark: 1,
-    climaActual: "despejado",
-    log: [],
+    dinero: 0, comida: 0, balas: 0, ropa: 0, bueyes: 0, repuestos: 0,
+    km: 0, dia: 0, diaInicio: 0,
+    ritmo: "normal", raciones: "normal",
+    sigLandmark: 1, climaActual: "despejado",
     turno: 0,
+    parejas: [],
+    hijosNacidos: 0,
+  };
+}
+
+function crearPersona(nombre, esLider, genero) {
+  return {
+    nombre, vivo: true, salud: 100,
+    enfermedad: null, diasEnfermo: 0,
+    esLider, genero,
+    relacion: esLider ? 100 : 50,
+    romance: 0,
+    esPareja: false,
+    embarazada: false,
+    diasEmbarazo: 0,
+    esHijo: false,
+    padres: null,
+    historiasCompartidas: 0,
   };
 }
 
@@ -426,6 +255,11 @@ function getClima() {
 }
 
 function vivos() { return G.grupo.filter(p=>p.vivo); }
+function lider() { return G.grupo.find(p=>p.esLider&&p.vivo); }
+function mujeresVivas() { return vivos().filter(p=>p.genero==='F'&&!p.esLider); }
+function parejasActuales() { return vivos().filter(p=>p.esPareja); }
+function numParejas() { return parejasActuales().length; }
+
 function consumoDiario() {
   const n = vivos().length;
   if (G.raciones==="escasas") return n;
@@ -438,6 +272,19 @@ function kmPorDia() {
   if (G.bueyes<=1) base=Math.floor(base/3);
   else if (G.bueyes<=2) base=Math.floor(base/2);
   return Math.max(1, base+rand(-3,3));
+}
+
+function generoIcon(p) {
+  if (p.esHijo) return p.genero==='M'?'👦':'👧';
+  if (p.esLider) return p.genero==='M'?'⭐':'⭐';
+  if (p.esPareja) return '💕';
+  return p.genero==='M'?'👨':'👩';
+}
+
+function generoLabel(p) {
+  if (p.esHijo) return p.genero==='M'?'Hijo':'Hija';
+  if (p.esPareja) return 'Pareja';
+  return p.genero==='M'?'Hombre':'Mujer';
 }
 
 function updateHUD() {
@@ -455,7 +302,6 @@ function updateHUD() {
 }
 
 function setText(html) { $('text-area').innerHTML = html; }
-function addText(html) { $('text-area').innerHTML += html; }
 
 function setChoices(choices) {
   $('choices').innerHTML = '';
@@ -469,59 +315,38 @@ function setChoices(choices) {
   });
 }
 
-function showOverlay(html, onClose) {
-  $('overlay-content').innerHTML = html + '<br><button class="choice-btn" style="width:100%;text-align:center;margin-top:10px" id="overlay-close">Cerrar</button>';
-  $('overlay').classList.add('show');
-  $('overlay-close').onclick = () => { $('overlay').classList.remove('show'); if(onClose) onClose(); };
-}
-
 function flashSave() {
   const el = $('save-indicator');
   el.classList.add('show');
   setTimeout(()=>el.classList.remove('show'), 1500);
 }
 
-function guardar() {
-  localStorage.setItem('oregon_save', JSON.stringify(G));
-  flashSave();
-}
+function guardar() { localStorage.setItem('oregon_save', JSON.stringify(G)); flashSave(); }
+function cargar() { const d=localStorage.getItem('oregon_save'); if(!d)return false; G=JSON.parse(d); return true; }
+function borrarGuardado() { localStorage.removeItem('oregon_save'); }
 
-function cargar() {
-  const data = localStorage.getItem('oregon_save');
-  if (!data) return false;
-  G = JSON.parse(data);
-  return true;
-}
-
-function borrarGuardado() {
-  localStorage.removeItem('oregon_save');
-}
-
-function healthColor(hp) {
-  if (hp>70) return '#90ee90';
-  if (hp>40) return '#ffa500';
-  return '#ff6b6b';
-}
-
-function relColor(r) {
-  if (r>70) return '#ff69b4';
-  if (r>40) return '#d4a843';
-  return '#ff6b6b';
-}
+function healthColor(hp) { return hp>70?'#90ee90':hp>40?'#ffa500':'#ff6b6b'; }
+function relColor(r) { return r>70?'#ff69b4':r>40?'#d4a843':'#ff6b6b'; }
 
 function personaHTML(p, showRel) {
   if (!p.vivo) return `<div class="person-card" style="opacity:0.4">
-    <span>💀 ${p.nombre} - fallecido/a</span></div>`;
+    <span>💀 ${p.nombre} (${generoLabel(p)}) - fallecido/a</span></div>`;
   let enfTxt = p.enfermedad ? `<span class="danger-text"> (${p.enfermedad})</span>` : '';
+  let embarazoTxt = p.embarazada ? `<span class="baby-text"> 🤰 ${p.diasEmbarazo} dias</span>` : '';
+  let parejaTag = p.esPareja ? '<span class="romance-text"> 💍</span>' : '';
   let relHTML = '';
   if (showRel && !p.esLider) {
-    relHTML = ` <span style="color:${relColor(p.relacion)}">❤ ${p.relacion}</span>
+    let romanceHTML = '';
+    if (p.genero==='F' && !p.esHijo && lider() && lider().genero==='M') {
+      romanceHTML = ` <span class="romance-text">💘${p.romance}</span>`;
+    }
+    relHTML = ` <span style="color:${relColor(p.relacion)}">❤${p.relacion}</span>${romanceHTML}
       <div class="rel-bar"><div class="rel-fill" style="width:${p.relacion}%"></div></div>`;
   }
   return `<div class="person-card">
-    <span>${p.esLider?'⭐':'👤'} ${p.nombre}${enfTxt}</span>
+    <span>${generoIcon(p)} ${p.nombre} <span style="color:#8b6914;font-size:16px">(${generoLabel(p)})</span>${parejaTag}${enfTxt}${embarazoTxt}</span>
     <span>
-      <span style="color:${healthColor(p.salud)}">${p.salud} HP</span>
+      <span style="color:${healthColor(p.salud)}">${p.salud}HP</span>
       <div class="health-bar"><div class="health-fill" style="width:${p.salud}%;background:${healthColor(p.salud)}"></div></div>
       ${relHTML}
     </span>
@@ -534,116 +359,113 @@ function pantallaInicio() {
   updateHUD();
   setText(`
     <div style="text-align:center;padding:40px 0">
-      <div class="title-text" style="font-size:18px;line-height:2">
-        EL SENDERO<br>DE OREGON
-      </div>
+      <div class="title-text" style="font-size:18px;line-height:2">EL SENDERO<br>DE OREGON</div>
       <br><br>
-      <div style="font-size:28px">🐂 🛒 🏔️</div>
-      <br>
-      <div style="color:#8b6914">~ 1848 ~</div>
-      <br>
+      <div style="font-size:28px">🐂 🛒 🏔️</div><br>
+      <div style="color:#8b6914">~ 1848 ~</div><br>
       <div>El viaje de 2800 km desde Missouri hasta Oregon.<br>
-      Sobrevivi enfermedades, rios, y el clima salvaje.</div>
+      Sobrevivi enfermedades, rios, y el clima salvaje.<br>
+      <span class="romance-text">Forma relaciones y construi una familia en el camino.</span></div>
     </div>
   `);
-
   const haySave = !!localStorage.getItem('oregon_save');
-  let opciones = [
-    {text:"Nuevo Juego", action: elegirProfesion},
-  ];
-  if (haySave) {
-    opciones.push({text:"Continuar Partida", action: () => {
-      cargar(); G.climaActual = getClima(); updateHUD(); menuPrincipal();
-    }});
-  }
+  let opciones = [{text:"Nuevo Juego", action: elegirProfesion}];
+  if (haySave) opciones.push({text:"Continuar Partida", action:()=>{ cargar(); G.climaActual=getClima(); updateHUD(); menuPrincipal(); }});
   setChoices(opciones);
 }
 
 function elegirProfesion() {
   nuevoJuego();
-  setText(`
-    <div class="section-title">ELIGE TU PROFESION</div>
-    <div style="margin:10px 0">
-      Cada profesion tiene diferente dinero inicial y multiplicador de puntos.
-    </div>
-  `);
-  setChoices(PROFESIONES.map((p,i) => ({
+  setText(`<div class="section-title">ELIGE TU PROFESION</div>
+    <div style="margin:10px 0">Cada profesion tiene diferente dinero inicial y multiplicador de puntos.</div>`);
+  setChoices(PROFESIONES.map(p => ({
     text: `${p.nombre} - $${p.dinero} ${p.mult>1?'(puntos x'+p.mult+')':''}`,
-    action: () => { G.profesion = p; G.dinero = p.dinero; nombrarGrupo(); }
+    action: () => { G.profesion=p; G.dinero=p.dinero; nombrarGrupo(); }
   })));
 }
 
+let tempGrupo = [];
+
 function nombrarGrupo() {
-  let html = `<div class="section-title">TU GRUPO DE VIAJE</div>
-    <div>Nombra a tu grupo de 5 personas:</div><br>`;
-  const defaults = ["","","","",""];
-  const labels = ["Lider de la caravana","Companiero/a 2","Companiero/a 3","Companiero/a 4","Companiero/a 5"];
-  for (let i=0;i<5;i++) {
-    html += `<div style="margin:3px 0">${labels[i]}:</div>
-      <input class="input-field" id="name-${i}" placeholder="${labels[i]}" maxlength="20">`;
-  }
-  setText(html);
-  setChoices([{text:"Continuar", action: () => {
-    G.grupo = [];
+  tempGrupo = [{nombre:'',genero:'M'},{nombre:'',genero:'M'},{nombre:'',genero:'F'},{nombre:'',genero:'F'},{nombre:'',genero:'M'}];
+
+  function render() {
+    const labels = ["Lider de la caravana","Companero/a 2","Companero/a 3","Companero/a 4","Companero/a 5"];
+    let html = `<div class="section-title">TU GRUPO DE VIAJE</div>
+      <div>Nombra a tu grupo y elegi el genero de cada uno:</div><br>`;
+
     for (let i=0;i<5;i++) {
-      let n = document.getElementById('name-'+i).value.trim();
-      if (!n) n = (i===0?"Lider":`Viajero ${i+1}`);
-      G.grupo.push({
-        nombre: n,
-        vivo: true,
-        salud: 100,
-        enfermedad: null,
-        diasEnfermo: 0,
-        esLider: i===0,
-        relacion: i===0 ? 100 : 50,
-        historiasCompartidas: 0,
-      });
+      html += `<div style="display:flex;gap:10px;align-items:center;margin:6px 0;flex-wrap:wrap">
+        <input class="input-field" id="name-${i}" placeholder="${labels[i]}" maxlength="20" value="${tempGrupo[i].nombre}" style="flex:1;min-width:150px">
+        <div class="gender-select">
+          <button class="gender-btn ${tempGrupo[i].genero==='M'?'selected':''}" onclick="setGenero(${i},'M')">👨 Hombre</button>
+          <button class="gender-btn ${tempGrupo[i].genero==='F'?'selected':''}" onclick="setGenero(${i},'F')">👩 Mujer</button>
+        </div>
+      </div>`;
     }
-    elegirMes();
-  }}]);
+
+    const mujeres = tempGrupo.filter(t=>t.genero==='F').length;
+    const hombres = tempGrupo.filter(t=>t.genero==='M').length;
+    html += `<br><div class="info-text">Grupo: ${hombres} hombres, ${mujeres} mujeres</div>`;
+    if (tempGrupo[0].genero==='M' && mujeres>0) {
+      html += `<div class="romance-text">El lider puede formar pareja con hasta 2 mujeres del grupo.</div>`;
+    }
+
+    setText(html);
+    setChoices([{text:"Continuar", action: () => {
+      G.grupo = [];
+      for (let i=0;i<5;i++) {
+        const el = document.getElementById('name-'+i);
+        let n = el ? el.value.trim() : '';
+        if (!n) n = (i===0?"Lider":`Viajero ${i+1}`);
+        tempGrupo[i].nombre = n;
+        G.grupo.push(crearPersona(n, i===0, tempGrupo[i].genero));
+      }
+      elegirMes();
+    }}]);
+  }
+
+  window.setGenero = (idx, g) => {
+    const nameEl = document.getElementById('name-'+idx);
+    if (nameEl) tempGrupo[idx].nombre = nameEl.value;
+    tempGrupo[idx].genero = g;
+    render();
+    const restored = document.getElementById('name-'+idx);
+    if (restored) { restored.value = tempGrupo[idx].nombre; restored.focus(); }
+  };
+
+  render();
 }
 
 function elegirMes() {
-  setText(`
-    <div class="section-title">FECHA DE PARTIDA</div>
+  setText(`<div class="section-title">FECHA DE PARTIDA</div>
     <div>Cuando queres partir?</div><br>
-    <div class="info-text">Consejo: Abril o Mayo es ideal.<br>
-    Muy temprano = frio. Muy tarde = nieve en las montanias.</div>
-  `);
+    <div class="info-text">Consejo: Abril o Mayo es ideal.<br>Muy temprano = frio. Muy tarde = nieve en las montanias.</div>`);
   const meses = [{n:"Marzo",d:59},{n:"Abril",d:90},{n:"Mayo",d:120},{n:"Junio",d:151},{n:"Julio",d:181}];
-  setChoices(meses.map(m => ({
-    text: m.n,
-    action: () => { G.diaInicio = m.d; G.dia = 0; tienda(false); }
-  })));
+  setChoices(meses.map(m => ({text:m.n, action:()=>{G.diaInicio=m.d;G.dia=0;tienda(false);}})));
 }
 
 function tienda(esFuerte) {
   const precios = esFuerte ? {
-    bueyes: rand(35,55), comida: rand(1,2), ropa: rand(8,15), balas: rand(2,4), repuestos: rand(8,18)
-  } : {
-    bueyes: 40, comida: 1, ropa: 10, balas: 2, repuestos: 10
-  };
-
-  const carrito = {bueyes:0, comida:0, ropa:0, balas:0, repuestos:0};
+    bueyes:rand(35,55),comida:rand(1,2),ropa:rand(8,15),balas:rand(2,4),repuestos:rand(8,18)
+  } : { bueyes:40,comida:1,ropa:10,balas:2,repuestos:10 };
+  const carrito = {bueyes:0,comida:0,ropa:0,balas:0,repuestos:0};
 
   function renderTienda() {
-    const gastos = carrito.bueyes*precios.bueyes + carrito.comida*precios.comida +
-      carrito.ropa*precios.ropa + carrito.balas*precios.balas + carrito.repuestos*precios.repuestos;
-    const disponible = G.dinero - gastos;
-
+    const gastos = carrito.bueyes*precios.bueyes+carrito.comida*precios.comida+
+      carrito.ropa*precios.ropa+carrito.balas*precios.balas+carrito.repuestos*precios.repuestos;
+    const disponible = G.dinero-gastos;
     const items = [
-      {key:'bueyes',nombre:'Bueyes (par)',precio:precios.bueyes,nota:'Necesitas al menos 2 pares',icon:'🐂'},
-      {key:'comida',nombre:'Comida (lb)',precio:precios.comida,nota:'Recomendado: 200+',icon:'🥩'},
-      {key:'ropa',nombre:'Ropa (juego)',precio:precios.ropa,nota:'2 por persona',icon:'👕'},
-      {key:'balas',nombre:'Balas (caja x20)',precio:precios.balas,nota:'Para cazar',icon:'🔫'},
-      {key:'repuestos',nombre:'Repuestos',precio:precios.repuestos,nota:'Para la carreta',icon:'🔧'},
+      {key:'bueyes',nombre:'Bueyes (par)',precio:precios.bueyes,icon:'🐂'},
+      {key:'comida',nombre:'Comida (lb)',precio:precios.comida,icon:'🥩'},
+      {key:'ropa',nombre:'Ropa (juego)',precio:precios.ropa,icon:'👕'},
+      {key:'balas',nombre:'Balas (caja x20)',precio:precios.balas,icon:'🔫'},
+      {key:'repuestos',nombre:'Repuestos',precio:precios.repuestos,icon:'🔧'},
     ];
-
     let html = `<div class="section-title">${esFuerte?'TIENDA DEL FUERTE':'TIENDA - Independence, Missouri'}</div>
       <div style="text-align:center;margin-bottom:10px">
         <span class="stat">Dinero disponible:</span> <span style="color:#90ee90;font-size:24px">$${disponible.toFixed(0)}</span>
       </div>`;
-
     items.forEach(it => {
       html += `<div class="store-item">
         <span>${it.icon} ${it.nombre} <span style="color:#8b6914">($${it.precio})</span></span>
@@ -656,596 +478,638 @@ function tienda(esFuerte) {
         </span>
       </div>`;
     });
-
     html += `<br><div style="text-align:center;color:#8b6914">Total: $${gastos.toFixed(0)}</div>`;
     setText(html);
-    setChoices([{text:"Comprar y continuar", action: () => {
-      if (gastos > G.dinero) { return; }
-      G.dinero -= gastos;
-      G.bueyes += carrito.bueyes * 2;
-      G.comida += carrito.comida;
-      G.ropa += carrito.ropa;
-      G.balas += carrito.balas * 20;
-      G.repuestos += carrito.repuestos;
+    setChoices([{text:"Comprar y continuar", action:()=>{
+      if(gastos>G.dinero)return;
+      G.dinero-=gastos;
+      G.bueyes+=carrito.bueyes*2; G.comida+=carrito.comida; G.ropa+=carrito.ropa;
+      G.balas+=carrito.balas*20; G.repuestos+=carrito.repuestos;
       updateHUD();
-      if (!esFuerte) {
-        G.climaActual = getClima();
-        updateHUD();
-        menuPrincipal();
-      } else {
-        menuPrincipal();
-      }
+      if(!esFuerte){G.climaActual=getClima();updateHUD();}
+      menuPrincipal();
     }}]);
   }
 
-  window.tiendaAjustar = (key, delta) => {
-    const gastos = () => carrito.bueyes*precios.bueyes + carrito.comida*precios.comida +
-      carrito.ropa*precios.ropa + carrito.balas*precios.balas + carrito.repuestos*precios.repuestos;
-    carrito[key] = Math.max(0, carrito[key]+delta);
-    if (gastos() > G.dinero) carrito[key] = Math.max(0, carrito[key]-delta);
-    document.getElementById('qty-'+key).textContent = carrito[key];
-    const disponible = G.dinero - gastos();
-    document.querySelector('.stat-val')?.closest('#main-content')
-    const dispEl = document.querySelector('#text-area span[style*="90ee90"]');
-    if (dispEl) dispEl.textContent = '$'+disponible.toFixed(0);
+  window.tiendaAjustar = (key,delta) => {
+    const gastos=()=>carrito.bueyes*precios.bueyes+carrito.comida*precios.comida+
+      carrito.ropa*precios.ropa+carrito.balas*precios.balas+carrito.repuestos*precios.repuestos;
+    carrito[key]=Math.max(0,carrito[key]+delta);
+    if(gastos()>G.dinero)carrito[key]=Math.max(0,carrito[key]-delta);
     renderTienda();
   };
-
   renderTienda();
 }
 
 function menuPrincipal() {
-  G.climaActual = getClima();
-  G.turno++;
-  updateHUD();
-
-  if (G.turno % 5 === 0) guardar();
+  G.climaActual=getClima(); G.turno++; updateHUD();
+  if(G.turno%5===0) guardar();
 
   let html = `<div class="section-title">CAMPAMENTO</div>`;
   html += `<div style="margin-bottom:10px">Ritmo: <span class="info-text">${G.ritmo}</span> | Raciones: <span class="info-text">${G.raciones}</span></div>`;
-
   G.grupo.forEach(p => { html += personaHTML(p, true); });
 
   if (G.sigLandmark < LANDMARKS.length) {
-    const sig = LANDMARKS[G.sigLandmark];
-    const dist = sig.km - G.km;
+    const sig=LANDMARKS[G.sigLandmark]; const dist=sig.km-G.km;
     html += `<br><div class="info-text">Proximo: ${sig.nombre} (${dist} km)</div>`;
   }
+  setText(html);
+
+  const l = lider();
+  const puedeCoquetear = l && l.genero==='M' && mujeresVivas().filter(m=>!m.esHijo).length>0;
+
+  setChoices([
+    {text:"🛤️ Continuar viaje", action:viajar},
+    {text:"⚙️ Cambiar ritmo/raciones", action:menuRitmo},
+    {text:"💤 Descansar", action:descansar},
+    {text:"🔫 Cazar", action:cazar, disabled:G.balas<=0},
+    {text:"👥 Hablar con el grupo", action:hablarGrupo},
+    {text:"💘 Relaciones romanticas", action:menuRomance, disabled:!puedeCoquetear},
+    {text:"🗺️ Ver mapa", action:verMapa},
+    {text:"💾 Guardar partida", action:()=>{guardar();menuPrincipal();}},
+  ]);
+}
+
+// --- ROMANCE ---
+
+function menuRomance() {
+  const l = lider();
+  if (!l || l.genero!=='M') { menuPrincipal(); return; }
+
+  const mujeres = mujeresVivas().filter(m=>!m.esHijo);
+  let html = `<div class="section-title">💘 RELACIONES ROMANTICAS</div>`;
+
+  const parejas = mujeres.filter(m=>m.esPareja);
+  if (parejas.length>0) {
+    html += `<div class="romance-text">Tus parejas:</div>`;
+    parejas.forEach(p => {
+      html += `<div style="margin:3px 0">💍 ${p.nombre} - Romance: ${p.romance} ${p.embarazada?'🤰 Embarazada ('+p.diasEmbarazo+' dias)':''}</div>`;
+    });
+    html += '<br>';
+  }
+
+  html += `<div>Podes tener hasta 2 parejas.</div>`;
+  if (numParejas()>=2) html += `<div class="info-text">Ya tenes el maximo de parejas.</div>`;
 
   setText(html);
 
-  setChoices([
-    {text:"🛤️ Continuar viaje", action: viajar},
-    {text:"⚙️ Cambiar ritmo/raciones", action: menuRitmo},
-    {text:"💤 Descansar", action: descansar},
-    {text:"🔫 Cazar", action: cazar, disabled: G.balas<=0},
-    {text:"👥 Hablar con el grupo", action: hablarGrupo},
-    {text:"🗺️ Ver mapa", action: verMapa},
-    {text:"💾 Guardar partida", action: () => { guardar(); menuPrincipal(); }},
-  ]);
+  let opciones = mujeres.map(m => ({
+    text: `${m.esPareja?'💍':'👩'} ${m.nombre} (❤${m.relacion} 💘${m.romance}) ${m.embarazada?'🤰':''}`,
+    action: () => interaccionRomantica(m)
+  }));
+  opciones.push({text:"Volver",action:menuPrincipal});
+  setChoices(opciones);
 }
+
+function interaccionRomantica(mujer) {
+  let html = `<div class="section-title">💘 ${mujer.nombre.toUpperCase()}</div>`;
+  html += personaHTML(mujer, true);
+  html += '<br>';
+
+  if (mujer.esPareja) {
+    html += `<div class="romance-text">💍 Es tu pareja. Romance: ${mujer.romance}/100</div>`;
+    if (mujer.embarazada) {
+      html += `<div class="baby-text">🤰 Embarazada - ${mujer.diasEmbarazo} dias (nace a los ~30 dias)</div>`;
+    }
+  } else {
+    html += `<div>Romance: ${mujer.romance}/100</div>`;
+    if (mujer.romance<30) html += `<div class="info-text">Todavia no hay mucha confianza romantica.</div>`;
+    else if (mujer.romance<60) html += `<div class="info-text">Hay una conexion creciendo entre ustedes.</div>`;
+    else if (mujer.romance<80) html += `<div class="romance-text">Se nota la atraccion mutua.</div>`;
+    else html += `<div class="romance-text">Esta loca por vos.</div>`;
+  }
+
+  setText(html);
+  let acciones = [];
+
+  if (!mujer.esPareja) {
+    acciones.push({text:"🌹 Regalarle flores silvestres", action:()=>{
+      const delta = rand(3,8);
+      mujer.romance = clamp(mujer.romance+delta,0,100);
+      mujer.relacion = clamp(mujer.relacion+rand(1,3),0,100);
+      mostrarResultadoRomance(mujer, `Le regalaste flores a ${mujer.nombre}. Se puso contenta. (💘+${delta})`, 'romance');
+    }});
+
+    acciones.push({text:"🌙 Pasear bajo las estrellas", action:()=>{
+      if (mujer.relacion<30) {
+        mujer.romance = clamp(mujer.romance-rand(1,3),0,100);
+        mostrarResultadoRomance(mujer, `${mujer.nombre} rechazo tu invitacion. No hay suficiente confianza.`, 'danger');
+      } else {
+        const delta = rand(4,10);
+        mujer.romance = clamp(mujer.romance+delta,0,100);
+        mujer.relacion = clamp(mujer.relacion+rand(2,4),0,100);
+        const frases = [
+          `Caminaron juntos bajo las estrellas. ${mujer.nombre} apoyo su cabeza en tu hombro.`,
+          `Compartieron un momento intimo mirando la luna. El viaje se siente mas liviano.`,
+          `${mujer.nombre} te tomo de la mano mientras caminaban. El fuego cruje a lo lejos.`,
+        ];
+        mostrarResultadoRomance(mujer, pick(frases)+` (💘+${delta})`, 'romance');
+      }
+    }});
+
+    if (mujer.romance>=70 && numParejas()<2) {
+      acciones.push({text:"💍 Pedirle que sea tu pareja", action:()=>{
+        if (mujer.relacion>=50 && mujer.romance>=70) {
+          mujer.esPareja = true;
+          mujer.romance = clamp(mujer.romance+15,0,100);
+          mujer.relacion = clamp(mujer.relacion+10,0,100);
+
+          const otrasPareja = parejasActuales().filter(p=>p!==mujer);
+          otrasPareja.forEach(o => {
+            o.relacion = clamp(o.relacion-rand(5,15),0,100);
+            o.romance = clamp(o.romance-rand(3,8),0,100);
+          });
+
+          let celos = otrasPareja.length>0 ? `<br><span class="danger-text">${otrasPareja[0].nombre} se muestra celosa...</span>` : '';
+          mostrarResultadoRomance(mujer, `💍 ${mujer.nombre} acepto ser tu pareja! Se abrazan frente al fuego.${celos}`, 'romance');
+        } else {
+          mujer.romance = clamp(mujer.romance-5,0,100);
+          mostrarResultadoRomance(mujer, `${mujer.nombre} dice que todavia no esta lista. Necesita mas confianza.`, 'info');
+        }
+      }});
+    } else if (mujer.romance>=70 && numParejas()>=2) {
+      acciones.push({text:"💍 Pedirle que sea tu pareja (MAX)", disabled:true, action:()=>{}});
+    }
+  }
+
+  if (mujer.esPareja) {
+    acciones.push({text:"💏 Pasar tiempo intimo juntos", action:()=>{
+      const delta = rand(5,12);
+      mujer.romance = clamp(mujer.romance+delta,0,100);
+      mujer.relacion = clamp(mujer.relacion+rand(2,5),0,100);
+      const frases = [
+        `Pasaron una noche especial juntos. El vinculo se fortalece.`,
+        `Se escaparon un rato del grupo. Volvieron con una sonrisa.`,
+        `${mujer.nombre} y vos compartieron un momento hermoso.`,
+      ];
+
+      let extra = '';
+      if (!mujer.embarazada && Math.random()<0.25) {
+        mujer.embarazada = true;
+        mujer.diasEmbarazo = 0;
+        extra = `<br><span class="baby-text">🤰 Unas semanas despues... ${mujer.nombre} te da la noticia: esta embarazada!</span>`;
+        G.hijosNacidos;
+      }
+
+      mostrarResultadoRomance(mujer, pick(frases)+` (💘+${delta})${extra}`, 'romance');
+    }});
+
+    acciones.push({text:"🌹 Decirle algo bonito", action:()=>{
+      const delta = rand(2,6);
+      mujer.romance = clamp(mujer.romance+delta,0,100);
+      const piropos = [
+        `"Sos la razon por la que quiero llegar a Oregon."`,
+        `"Cada dia a tu lado hace que el viaje valga la pena."`,
+        `"Cuando te veo, el sendero no parece tan duro."`,
+        `"Voy a construirte la mejor casa del valle de Willamette."`,
+      ];
+      mostrarResultadoRomance(mujer, `Le dijiste: ${pick(piropos)} (💘+${delta})`, 'romance');
+    }});
+  }
+
+  acciones.push({text:"Volver",action:menuRomance});
+  setChoices(acciones);
+}
+
+function mostrarResultadoRomance(mujer, msg, tipo) {
+  let cls = {danger:'danger-text',romance:'romance-text',info:'info-text',success:'success-text'}[tipo]||'';
+  let html = `<div class="section-title">💘 ${mujer.nombre.toUpperCase()}</div>`;
+  html += personaHTML(mujer, true);
+  html += `<br><div class="${cls}">${msg}</div>`;
+  setText(html);
+  setChoices([{text:"Seguir",action:()=>interaccionRomantica(mujer)},{text:"Volver",action:menuRomance}]);
+}
+
+function procesarEmbarazos(eventos) {
+  vivos().filter(p=>p.embarazada).forEach(m => {
+    m.diasEmbarazo++;
+    if (m.diasEmbarazo >= 30) {
+      m.embarazada = false;
+      m.diasEmbarazo = 0;
+      m.salud -= rand(10,20);
+      m.salud = Math.max(10, m.salud);
+
+      const genBebe = Math.random()<0.5 ? 'M' : 'F';
+      const nombres = genBebe==='M' ? NOMBRES_BEBE_M : NOMBRES_BEBE_F;
+      const nombreBebe = pick(nombres);
+      const l = lider();
+      const padreNombre = l ? l.nombre : 'Lider';
+
+      const bebe = crearPersona(nombreBebe, false, genBebe);
+      bebe.esHijo = true;
+      bebe.padres = {madre: m.nombre, padre: padreNombre};
+      bebe.relacion = 80;
+      bebe.salud = 70;
+      G.grupo.push(bebe);
+      G.hijosNacidos++;
+
+      const gen = genBebe==='M'?'hijo':'hija';
+      eventos.push(`<span class="baby-text">👶 ${m.nombre} dio a luz! Nacio ${nombreBebe}, ${gen} de ${m.nombre} y ${padreNombre}!</span>`);
+
+      m.romance = clamp(m.romance+10,0,100);
+      m.relacion = clamp(m.relacion+5,0,100);
+
+      if (m.salud < 30) {
+        eventos.push(`<span class="danger-text">${m.nombre} esta muy debil despues del parto.</span>`);
+      }
+    } else if (m.diasEmbarazo===15) {
+      eventos.push(`<span class="baby-text">🤰 ${m.nombre} ya se le nota el embarazo. El grupo la cuida.</span>`);
+    }
+  });
+}
+
+function eventoRomanceViaje(eventos) {
+  if (Math.random()>0.06) return;
+  const parejas = parejasActuales();
+  if (!parejas.length) return;
+  const p = pick(parejas);
+  const tipo = rand(1,5);
+
+  if (tipo===1) {
+    p.romance=clamp(p.romance+rand(2,5),0,100);
+    eventos.push(`<span class="romance-text">💕 ${p.nombre} te busco para caminar juntos un rato. (💘+)</span>`);
+  } else if (tipo===2 && parejas.length===2) {
+    parejas.forEach(pa => { pa.relacion=clamp(pa.relacion-rand(2,5),0,100); pa.romance=clamp(pa.romance-rand(1,3),0,100); });
+    eventos.push(`<span class="danger-text">😤 ${parejas[0].nombre} y ${parejas[1].nombre} discutieron por celos. Tension en el grupo.</span>`);
+  } else if (tipo===3) {
+    p.romance=clamp(p.romance+rand(3,7),0,100);
+    p.relacion=clamp(p.relacion+rand(1,3),0,100);
+    const actos = [
+      `${p.nombre} te preparo algo especial de comer.`,
+      `${p.nombre} te dio un beso antes de dormir.`,
+      `${p.nombre} te arreglo la ropa rota con carinio.`,
+    ];
+    eventos.push(`<span class="romance-text">💛 ${pick(actos)} (💘+)</span>`);
+  } else if (tipo===4 && p.romance<30) {
+    eventos.push(`<span class="danger-text">💔 ${p.nombre} parece distante. La relacion se enfria...</span>`);
+    p.romance=clamp(p.romance-rand(3,8),0,100);
+    if (p.romance<=5 && !p.embarazada) {
+      p.esPareja = false;
+      eventos.push(`<span class="danger-text">💔 ${p.nombre} decidio terminar la relacion.</span>`);
+    }
+  } else if (tipo===5 && p.embarazada) {
+    p.salud=clamp(p.salud-rand(2,5),0,100);
+    eventos.push(`<span class="baby-text">🤰 ${p.nombre} tiene malestares por el embarazo. Necesita descanso.</span>`);
+  }
+}
+
+// --- MENU RITMO ---
 
 function menuRitmo() {
   setText(`<div class="section-title">CONFIGURACION</div>`);
   setChoices([
-    {text:`Ritmo: Lento (10-12 km/dia, menos desgaste) ${G.ritmo==='lento'?'◄':''}`, action:()=>{G.ritmo='lento';menuRitmo();}},
+    {text:`Ritmo: Lento (10-12 km/dia) ${G.ritmo==='lento'?'◄':''}`, action:()=>{G.ritmo='lento';menuRitmo();}},
     {text:`Ritmo: Normal (15-18 km/dia) ${G.ritmo==='normal'?'◄':''}`, action:()=>{G.ritmo='normal';menuRitmo();}},
-    {text:`Ritmo: Rapido (20-25 km/dia, mas desgaste) ${G.ritmo==='rapido'?'◄':''}`, action:()=>{G.ritmo='rapido';menuRitmo();}},
-    {text:`--- Raciones ---`, disabled:true, action:()=>{}},
+    {text:`Ritmo: Rapido (20-25 km/dia) ${G.ritmo==='rapido'?'◄':''}`, action:()=>{G.ritmo='rapido';menuRitmo();}},
+    {text:`--- Raciones ---`,disabled:true,action:()=>{}},
     {text:`Escasas (1 lb/persona) ${G.raciones==='escasas'?'◄':''}`, action:()=>{G.raciones='escasas';menuRitmo();}},
     {text:`Normales (2 lb/persona) ${G.raciones==='normal'?'◄':''}`, action:()=>{G.raciones='normal';menuRitmo();}},
     {text:`Abundantes (3 lb/persona) ${G.raciones==='abundantes'?'◄':''}`, action:()=>{G.raciones='abundantes';menuRitmo();}},
-    {text:"Volver", action: menuPrincipal},
+    {text:"Volver",action:menuPrincipal},
   ]);
 }
 
 function descansar() {
-  const dias = rand(1,3);
-  const consumo = consumoDiario();
-  const eventos = [];
-
-  for (let i=0;i<dias;i++) {
+  const dias=rand(1,3); const consumo=consumoDiario(); const eventos=[];
+  for(let i=0;i<dias;i++){
     G.dia++;
-    G.comida = Math.max(0, G.comida-consumo);
-    vivos().forEach(p => {
-      p.salud = clamp(p.salud+rand(3,8),0,100);
-      if (!p.esLider) p.relacion = clamp(p.relacion+rand(0,2),0,100);
-      if (p.enfermedad && Math.random()<0.3) {
-        p.enfermedad = null;
-        p.diasEnfermo = 0;
-        eventos.push(`<span class="success-text">${p.nombre} se recupero!</span>`);
-      }
+    G.comida=Math.max(0,G.comida-consumo);
+    vivos().forEach(p=>{
+      p.salud=clamp(p.salud+rand(3,8),0,100);
+      if(!p.esLider)p.relacion=clamp(p.relacion+rand(0,2),0,100);
+      if(p.enfermedad&&Math.random()<0.3){p.enfermedad=null;p.diasEnfermo=0;eventos.push(`<span class="success-text">${p.nombre} se recupero!</span>`);}
     });
+    procesarEmbarazos(eventos);
   }
-
-  if (Math.random()<0.3 && vivos().length>1) {
-    const comp = pick(vivos().filter(p=>!p.esLider));
-    if (comp) {
-      comp.relacion = clamp(comp.relacion+rand(3,8),0,100);
-      eventos.push(`<span class="relation-text">${comp.nombre} y vos compartieron historias junto al fuego. (❤+)</span>`);
-      comp.historiasCompartidas++;
-    }
+  if(Math.random()<0.3&&vivos().length>1){
+    const comp=pick(vivos().filter(p=>!p.esLider));
+    if(comp){comp.relacion=clamp(comp.relacion+rand(3,8),0,100);
+      eventos.push(`<span class="relation-text">${comp.nombre} y vos compartieron historias junto al fuego. (❤+)</span>`);}
   }
-
   updateHUD();
-  let html = `<div class="section-title">DESCANSO</div>`;
-  html += `<div>El grupo descanso ${dias} dias.</div><br>`;
-  eventos.forEach(e => html += `<div>${e}</div>`);
+  let html=`<div class="section-title">DESCANSO</div><div>El grupo descanso ${dias} dias.</div><br>`;
+  eventos.forEach(e=>html+=`<div>${e}</div>`);
   setText(html);
   setChoices([{text:"Continuar",action:menuPrincipal}]);
 }
 
 function cazar() {
-  const balasUsadas = rand(3,12);
-  G.balas = Math.max(0, G.balas-balasUsadas);
-  const encuentros = rand(1,3);
-  let comidaTotal = 0;
-  const resultados = [];
-
-  for (let i=0;i<encuentros;i++) {
-    const animal = pick(ANIMALES);
-    const exito = rand(1,10) <= animal.dificultad;
-    if (exito) {
-      let ganado = Math.max(1, animal.comida + rand(-5,10));
-      comidaTotal += ganado;
+  const balasUsadas=rand(3,12); G.balas=Math.max(0,G.balas-balasUsadas);
+  const encuentros=rand(1,3); let comidaTotal=0; const resultados=[];
+  for(let i=0;i<encuentros;i++){
+    const animal=pick(ANIMALES);
+    if(rand(1,10)<=animal.dificultad){
+      let ganado=Math.max(1,animal.comida+rand(-5,10)); comidaTotal+=ganado;
       resultados.push(`<div class="success-text">${animal.emoji} Cazaste un ${animal.nombre}! (+${ganado} lb)</div>`);
-    } else {
-      resultados.push(`<div class="danger-text">${animal.emoji} Fallaste el tiro al ${animal.nombre}.</div>`);
-    }
+    } else resultados.push(`<div class="danger-text">${animal.emoji} Fallaste el tiro al ${animal.nombre}.</div>`);
   }
-
-  if (comidaTotal > 100) {
-    comidaTotal = 100;
-    resultados.push(`<div class="info-text">Solo podes cargar 100 lb de vuelta.</div>`);
-  }
-
-  G.comida += comidaTotal;
-  G.dia++;
-  G.comida = Math.max(0, G.comida - consumoDiario());
-
-  if (Math.random()<0.25 && vivos().length>1) {
-    const comp = pick(vivos().filter(p=>!p.esLider));
-    if (comp) {
-      comp.relacion = clamp(comp.relacion+rand(2,5),0,100);
-      resultados.push(`<div class="relation-text">${comp.nombre} te ayudo a cargar la presa. (❤+)</div>`);
-    }
-  }
-
+  if(comidaTotal>100){comidaTotal=100;resultados.push(`<div class="info-text">Solo podes cargar 100 lb.</div>`);}
+  G.comida+=comidaTotal; G.dia++; G.comida=Math.max(0,G.comida-consumoDiario());
+  if(Math.random()<0.25&&vivos().length>1){const comp=pick(vivos().filter(p=>!p.esLider));
+    if(comp){comp.relacion=clamp(comp.relacion+rand(2,5),0,100);
+      resultados.push(`<div class="relation-text">${comp.nombre} te ayudo a cargar la presa. (❤+)</div>`);}}
   updateHUD();
-  let html = `<div class="section-title">CACERIA</div><br>`;
-  resultados.forEach(r => html += r);
-  html += `<br><div>Usaste ${balasUsadas} balas. Total: ${comidaTotal} lb de comida.</div>`;
+  let html=`<div class="section-title">CACERIA</div><br>`;
+  resultados.forEach(r=>html+=r);
+  html+=`<br><div>Usaste ${balasUsadas} balas. Total: ${comidaTotal} lb de comida.</div>`;
   setText(html);
   setChoices([{text:"Volver al campamento",action:menuPrincipal}]);
 }
 
 function hablarGrupo() {
-  const companeros = vivos().filter(p=>!p.esLider);
-  if (companeros.length===0) {
-    setText(`<div class="section-title">GRUPO</div><div>No queda nadie con quien hablar...</div>`);
-    setChoices([{text:"Volver",action:menuPrincipal}]);
-    return;
-  }
+  const companeros=vivos().filter(p=>!p.esLider);
+  if(!companeros.length){setText(`<div class="section-title">GRUPO</div><div>No queda nadie con quien hablar...</div>`);
+    setChoices([{text:"Volver",action:menuPrincipal}]);return;}
   setText(`<div class="section-title">HABLAR CON EL GRUPO</div><div>Con quien queres hablar?</div>`);
-  let opciones = companeros.map(p => ({
-    text: `${p.nombre} (❤ ${p.relacion}) ${p.enfermedad?'🤒':''}`,
-    action: () => interactuar(p)
+  let opciones=companeros.map(p=>({
+    text:`${generoIcon(p)} ${p.nombre} (❤${p.relacion}) ${p.enfermedad?'🤒':''} ${p.esPareja?'💍':''} ${p.esHijo?'(hijo/a)':''}`,
+    action:()=>interactuar(p)
   }));
   opciones.push({text:"Volver",action:menuPrincipal});
   setChoices(opciones);
 }
 
 function interactuar(persona) {
-  let html = `<div class="section-title">${persona.nombre.toUpperCase()}</div>`;
-  html += personaHTML(persona, true);
-  html += '<br>';
+  let html=`<div class="section-title">${persona.nombre.toUpperCase()}</div>`;
+  html+=personaHTML(persona,true)+'<br>';
 
-  let relEvento = RELACION_EVENTOS.find(e => persona.relacion >= e.min && persona.relacion <= e.max);
-  if (relEvento) {
-    html += `<div class="relation-text">${relEvento.texto.replace('{name}',persona.nombre)}</div><br>`;
+  if(persona.esHijo&&persona.padres){
+    html+=`<div class="baby-text">Hijo/a de ${persona.padres.madre} y ${persona.padres.padre}</div><br>`;
   }
 
-  let acciones = [];
-
-  acciones.push({text:"Conversar", action: () => {
-    let delta = rand(1,5);
-    if (persona.relacion < 30 && Math.random()<0.3) {
-      delta = -rand(1,3);
-      persona.relacion = clamp(persona.relacion+delta,0,100);
-      mostrarResultado(`${persona.nombre} no tiene ganas de hablar. La tension se siente.`, 'danger');
-    } else {
-      persona.relacion = clamp(persona.relacion+delta,0,100);
-      const frases = [
-        `${persona.nombre} te cuenta sobre su vida antes del viaje.`,
-        `Compartieron un momento de risa recordando Independence.`,
-        `${persona.nombre} te agradece por liderar el grupo.`,
-        `Hablaron sobre lo que haran al llegar a Oregon.`,
-        `${persona.nombre} te conto un secreto de su pasado.`,
-      ];
-      mostrarResultado(pick(frases) + ` (❤+${delta})`, 'relation');
-    }
+  let acciones=[];
+  acciones.push({text:"Conversar",action:()=>{
+    let delta=rand(1,5);
+    if(persona.relacion<30&&Math.random()<0.3){delta=-rand(1,3);persona.relacion=clamp(persona.relacion+delta,0,100);
+      mostrarResultadoChat(persona,`${persona.nombre} no tiene ganas de hablar.`,'danger');}
+    else{persona.relacion=clamp(persona.relacion+delta,0,100);
+      const frases=[`${persona.nombre} te cuenta sobre su vida antes del viaje.`,
+        `Compartieron un momento de risa.`,`${persona.nombre} te agradece por liderar el grupo.`,
+        `Hablaron sobre Oregon.`,`${persona.nombre} te conto un secreto.`];
+      mostrarResultadoChat(persona,pick(frases)+` (❤+${delta})`,'relation');}
   }});
 
-  if (G.comida >= 10) {
-    acciones.push({text:"Compartir comida extra (-10 lb)", action: () => {
-      G.comida -= 10;
-      const delta = rand(3,8);
-      persona.relacion = clamp(persona.relacion+delta,0,100);
-      persona.salud = clamp(persona.salud+rand(2,5),0,100);
-      updateHUD();
-      mostrarResultado(`Le diste comida extra a ${persona.nombre}. Se lo nota agradecido/a. (❤+${delta})`, 'relation');
+  if(G.comida>=10){
+    acciones.push({text:"Compartir comida extra (-10 lb)",action:()=>{
+      G.comida-=10;const delta=rand(3,8);persona.relacion=clamp(persona.relacion+delta,0,100);
+      persona.salud=clamp(persona.salud+rand(2,5),0,100);updateHUD();
+      mostrarResultadoChat(persona,`Le diste comida extra a ${persona.nombre}. (❤+${delta})`,'relation');
     }});
   }
-
-  if (persona.enfermedad) {
-    acciones.push({text:"Cuidar su enfermedad", action: () => {
-      const delta = rand(3,6);
-      persona.relacion = clamp(persona.relacion+delta,0,100);
-      if (Math.random()<0.35) {
-        persona.enfermedad = null;
-        persona.diasEnfermo = 0;
-        mostrarResultado(`Cuidaste a ${persona.nombre} y se recupero! (❤+${delta})`, 'success');
-      } else {
-        persona.salud = clamp(persona.salud+rand(1,3),0,100);
-        mostrarResultado(`Cuidaste a ${persona.nombre}. Se siente un poco mejor. (❤+${delta})`, 'relation');
-      }
+  if(persona.enfermedad){
+    acciones.push({text:"Cuidar su enfermedad",action:()=>{
+      const delta=rand(3,6);persona.relacion=clamp(persona.relacion+delta,0,100);
+      if(Math.random()<0.35){persona.enfermedad=null;persona.diasEnfermo=0;
+        mostrarResultadoChat(persona,`Cuidaste a ${persona.nombre} y se recupero! (❤+${delta})`,'success');}
+      else{persona.salud=clamp(persona.salud+rand(1,3),0,100);
+        mostrarResultadoChat(persona,`Cuidaste a ${persona.nombre}. Se siente un poco mejor. (❤+${delta})`,'relation');}
     }});
   }
-
-  if (persona.relacion >= 70) {
-    acciones.push({text:"Pedirle consejo sobre el viaje", action: () => {
-      const consejos = [
-        `${persona.nombre} dice: "Deberíamos cazar mas seguido."`,
-        `${persona.nombre} dice: "No te apures, el camino es largo."`,
-        `${persona.nombre} dice: "Hay que cuidar a los bueyes, sin ellos no somos nada."`,
-        `${persona.nombre} dice: "Confio en vos. Llegaremos a Oregon."`,
-        `${persona.nombre} dice: "Si ahorramos comida ahora, nos va a servir en las montanias."`,
-      ];
-      persona.relacion = clamp(persona.relacion+2,0,100);
-      mostrarResultado(pick(consejos), 'info');
+  if(persona.relacion>=70){
+    acciones.push({text:"Pedirle consejo",action:()=>{
+      const consejos=[`"Deberíamos cazar mas seguido."`,`"No te apures, el camino es largo."`,
+        `"Cuidemos a los bueyes."`,`"Confio en vos."`,`"Ahorremos comida para las montanias."`];
+      persona.relacion=clamp(persona.relacion+2,0,100);
+      mostrarResultadoChat(persona,`${persona.nombre} dice: ${pick(consejos)}`,'info');
     }});
   }
-
   acciones.push({text:"Volver",action:hablarGrupo});
-
-  function mostrarResultado(msg, tipo) {
-    let cls = {danger:'danger-text',success:'success-text',relation:'relation-text',info:'info-text'}[tipo]||'';
-    html = `<div class="section-title">${persona.nombre.toUpperCase()}</div>`;
-    html += personaHTML(persona, true);
-    html += `<br><div class="${cls}">${msg}</div>`;
-    setText(html);
-    setChoices([{text:"Seguir hablando", action:()=>interactuar(persona)},{text:"Volver al grupo",action:hablarGrupo}]);
-  }
-
   setText(html);
   setChoices(acciones);
 }
 
-function verMapa() {
-  let html = `<div class="section-title">MAPA DEL SENDERO</div>`;
-  LANDMARKS.forEach((lm,i) => {
-    let cls = 'future';
-    if (lm.km <= G.km) cls = 'visited';
-    if (i === G.sigLandmark) cls = 'current';
-    let extra = '';
-    if (lm.rio) extra += ' ~rio~';
-    if (lm.fuerte) extra += ' [fuerte]';
-    html += `<div class="map-landmark ${cls}">${lm.km} km - ${lm.nombre}${extra}</div>`;
-  });
-  html += `<br><div class="info-text">Tu posicion: ${G.km} km</div>`;
+function mostrarResultadoChat(persona,msg,tipo){
+  let cls={danger:'danger-text',success:'success-text',relation:'relation-text',info:'info-text'}[tipo]||'';
+  let html=`<div class="section-title">${persona.nombre.toUpperCase()}</div>`;
+  html+=personaHTML(persona,true)+`<br><div class="${cls}">${msg}</div>`;
   setText(html);
-  setChoices([{text:"Volver",action:menuPrincipal}]);
+  setChoices([{text:"Seguir hablando",action:()=>interactuar(persona)},{text:"Volver al grupo",action:hablarGrupo}]);
 }
 
-function viajar() {
-  const dias = rand(3,7);
-  let kmTotal = 0;
-  const eventos = [];
-  let sinComidaYaAvisado = false;
+function verMapa(){
+  let html=`<div class="section-title">MAPA DEL SENDERO</div>`;
+  LANDMARKS.forEach((lm,i)=>{
+    let cls='future';if(lm.km<=G.km)cls='visited';if(i===G.sigLandmark)cls='current';
+    let extra='';if(lm.rio)extra+=' ~rio~';if(lm.fuerte)extra+=' [fuerte]';
+    html+=`<div class="map-landmark ${cls}">${lm.km} km - ${lm.nombre}${extra}</div>`;
+  });
+  html+=`<br><div class="info-text">Tu posicion: ${G.km} km</div>`;
+  setText(html);setChoices([{text:"Volver",action:menuPrincipal}]);
+}
 
-  for (let d=0;d<dias;d++) {
+// --- VIAJAR ---
+
+function viajar(){
+  const dias=rand(3,7);let kmTotal=0;const eventos=[];let sinComidaAvisado=false;
+
+  for(let d=0;d<dias;d++){
     G.dia++;
-    let kmHoy = kmPorDia();
-    if (G.climaActual==='tormenta'||G.climaActual==='nieve') kmHoy = Math.floor(kmHoy/2);
-    kmTotal += kmHoy;
-    G.km += kmHoy;
+    let kmHoy=kmPorDia();
+    if(G.climaActual==='tormenta'||G.climaActual==='nieve')kmHoy=Math.floor(kmHoy/2);
 
-    G.comida -= consumoDiario();
-    if (G.comida <= 0) {
-      G.comida = 0;
-      if (!sinComidaYaAvisado) {
-        eventos.push(`<span class="danger-text">Se acabo la comida!</span>`);
-        sinComidaYaAvisado = true;
-      }
-      vivos().forEach(p => p.salud -= rand(8,15));
+    const embarazadas=vivos().filter(p=>p.embarazada);
+    if(embarazadas.length>0&&G.ritmo==='rapido') kmHoy=Math.floor(kmHoy*0.8);
+
+    kmTotal+=kmHoy;G.km+=kmHoy;
+
+    G.comida-=consumoDiario();
+    if(G.comida<=0){G.comida=0;if(!sinComidaAvisado){eventos.push(`<span class="danger-text">Se acabo la comida!</span>`);sinComidaAvisado=true;}
+      vivos().forEach(p=>p.salud-=rand(8,15));}
+
+    if(G.raciones==='escasas')vivos().forEach(p=>p.salud-=rand(0,3));
+    else if(G.raciones==='abundantes')vivos().forEach(p=>p.salud=clamp(p.salud+rand(0,2),0,100));
+
+    if(G.ritmo==='rapido'){vivos().forEach(p=>p.salud-=rand(1,4));
+      vivos().filter(p=>!p.esLider).forEach(p=>{if(Math.random()<0.1)p.relacion=clamp(p.relacion-rand(1,3),0,100);});
+      vivos().filter(p=>p.embarazada).forEach(p=>{p.salud-=rand(2,5);});
     }
 
-    if (G.raciones==='escasas') vivos().forEach(p=>p.salud-=rand(0,3));
-    else if (G.raciones==='abundantes') vivos().forEach(p=>p.salud=clamp(p.salud+rand(0,2),0,100));
+    if(G.climaActual==='nieve'&&G.ropa<=0){vivos().forEach(p=>p.salud-=rand(3,8));
+      if(!eventos.find(e=>e.includes('frio')))eventos.push(`<span class="danger-text">El frio sin ropa afecta al grupo.</span>`);}
 
-    if (G.ritmo==='rapido') {
-      vivos().forEach(p=>p.salud-=rand(1,4));
-      vivos().filter(p=>!p.esLider).forEach(p=>{
-        if(Math.random()<0.1) p.relacion=clamp(p.relacion-rand(1,3),0,100);
-      });
-    }
+    vivos().forEach(p=>{if(p.enfermedad){p.diasEnfermo++;p.salud-=rand(3,7);
+      if(p.diasEnfermo>5&&Math.random()<0.15){p.enfermedad=null;p.diasEnfermo=0;
+        eventos.push(`<span class="success-text">${p.nombre} se recupero!</span>`);}}});
 
-    if (G.climaActual==='nieve' && G.ropa<=0) {
-      vivos().forEach(p=>p.salud-=rand(3,8));
-      if (!eventos.find(e=>e.includes('frio')))
-        eventos.push(`<span class="danger-text">El frio sin ropa adecuada afecta al grupo.</span>`);
-    }
-
-    vivos().forEach(p=>{
-      if(p.enfermedad){
-        p.diasEnfermo++;
-        p.salud-=rand(3,7);
-        if(p.diasEnfermo>5&&Math.random()<0.15){
-          p.enfermedad=null;p.diasEnfermo=0;
-          eventos.push(`<span class="success-text">${p.nombre} se recupero de su enfermedad!</span>`);
-        }
-      }
+    // Hijos son mas fragiles
+    vivos().filter(p=>p.esHijo).forEach(p=>{
+      if(G.comida<=0) p.salud-=rand(3,5);
+      if(G.climaActual==='nieve') p.salud-=rand(1,3);
     });
 
+    procesarEmbarazos(eventos);
     eventoAleatorio(eventos);
     eventoRelacion(eventos);
+    eventoRomanceViaje(eventos);
 
     vivos().forEach(p=>{
-      if(p.salud<=0){
-        p.vivo=false;p.salud=0;
+      if(p.salud<=0){p.vivo=false;p.salud=0;
         eventos.push(`<span class="danger-text">💀 ${p.nombre} ha fallecido.</span>`);
-        vivos().filter(v=>!v.esLider).forEach(v=>{
-          v.relacion=clamp(v.relacion-rand(5,15),0,100);
-        });
-      }
+        if(p.esPareja){
+          const l=lider();if(l)eventos.push(`<span class="romance-text">💔 Perdiste a ${p.nombre}... tu pareja.</span>`);
+        }
+        if(p.esHijo){eventos.push(`<span class="baby-text">😢 El pequenio/a ${p.nombre} no sobrevivio...</span>`);}
+        vivos().filter(v=>!v.esLider).forEach(v=>{v.relacion=clamp(v.relacion-rand(5,15),0,100);});}
     });
 
-    if (G.sigLandmark < LANDMARKS.length && G.km >= LANDMARKS[G.sigLandmark].km) {
-      const lm = LANDMARKS[G.sigLandmark];
+    if(G.sigLandmark<LANDMARKS.length&&G.km>=LANDMARKS[G.sigLandmark].km){
+      const lm=LANDMARKS[G.sigLandmark];
       eventos.push(`<span class="success-text">Llegaste a ${lm.nombre}!</span>`);
       G.sigLandmark++;
-      if (G.km >= 2800) {
-        updateHUD();
-        mostrarResumenViaje(kmTotal, dias, eventos, () => pantallaVictoria());
-        return;
-      }
-      if (lm.rio) {
-        updateHUD();
-        mostrarResumenViaje(kmTotal, dias, eventos, () => cruzarRio(lm));
-        return;
-      }
-      if (lm.fuerte) {
-        updateHUD();
-        mostrarResumenViaje(kmTotal, dias, eventos, () => llegarFuerte(lm));
-        return;
-      }
+      if(G.km>=2800){updateHUD();mostrarResumenViaje(kmTotal,dias,eventos,pantallaVictoria);return;}
+      if(lm.rio){updateHUD();mostrarResumenViaje(kmTotal,dias,eventos,()=>cruzarRio(lm));return;}
+      if(lm.fuerte){updateHUD();mostrarResumenViaje(kmTotal,dias,eventos,()=>llegarFuerte(lm));return;}
       break;
     }
-
-    if (!vivos().length) {
-      updateHUD();
-      mostrarResumenViaje(kmTotal, dias, eventos, pantallaDerrota);
-      return;
-    }
+    if(!vivos().length){updateHUD();mostrarResumenViaje(kmTotal,dias,eventos,pantallaDerrota);return;}
   }
-
-  updateHUD();
-  mostrarResumenViaje(kmTotal, dias, eventos, menuPrincipal);
+  updateHUD();mostrarResumenViaje(kmTotal,dias,eventos,menuPrincipal);
 }
 
-function eventoAleatorio(eventos) {
-  if(!vivos().length) return;
-  const r = Math.random();
-  if (r<0.04) {
-    const v = pick(vivos());
-    const enf = pick(ENFERMEDADES);
-    if(!v.enfermedad){v.enfermedad=enf;v.diasEnfermo=0;
-      eventos.push(`<span class="event-text">🤒 ${v.nombre} tiene ${enf}.</span>`);
-    }
-  } else if(r<0.06){
-    if(G.repuestos>0){G.repuestos--;eventos.push(`<span class="event-text">🔧 Se rompio una rueda. Usaste un repuesto.</span>`);}
-    else{G.dia+=3;G.comida=Math.max(0,G.comida-consumoDiario()*3);
-      eventos.push(`<span class="danger-text">🔧 Rueda rota sin repuestos! Perdiste 3 dias.</span>`);}
-  } else if(r<0.08){
-    if(G.bueyes>2){G.bueyes--;eventos.push(`<span class="event-text">🐂 Un buey murio por agotamiento.</span>`);}
-  } else if(r<0.09){
-    const rob=rand(10,50);G.comida=Math.max(0,G.comida-rob);
-    eventos.push(`<span class="danger-text">🥷 Ladrones robaron ${rob} lb de comida!</span>`);
-  } else if(r<0.10){
-    const per=rand(5,20);G.balas=Math.max(0,G.balas-per);
-    eventos.push(`<span class="event-text">💧 Se mojaron ${per} balas.</span>`);
-  } else if(r<0.12){
-    const enc=rand(5,30);G.comida+=enc;
-    eventos.push(`<span class="success-text">📦 Encontraste ${enc} lb de comida en una carreta abandonada!</span>`);
-  } else if(r<0.13){
-    if(G.ropa>0){G.ropa--;eventos.push(`<span class="event-text">👕 Un juego de ropa se danio.</span>`);}
-  } else if(r<0.14){
-    vivos().forEach(p=>p.salud=clamp(p.salud+rand(1,5),0,100));
-    eventos.push(`<span class="success-text">🌿 Agua fresca y buen pasto. El grupo descansa bien.</span>`);
-  } else if(r<0.145){
-    G.dinero+=rand(5,25);
-    eventos.push(`<span class="success-text">💰 Un viajero te pago por ayudarlo.</span>`);
-  }
+function eventoAleatorio(eventos){
+  if(!vivos().length)return;const r=Math.random();
+  if(r<0.04){const v=pick(vivos());const enf=pick(ENFERMEDADES);
+    if(!v.enfermedad){v.enfermedad=enf;v.diasEnfermo=0;eventos.push(`<span class="event-text">🤒 ${v.nombre} tiene ${enf}.</span>`);}}
+  else if(r<0.06){if(G.repuestos>0){G.repuestos--;eventos.push(`<span class="event-text">🔧 Se rompio una rueda. Usaste repuesto.</span>`);}
+    else{G.dia+=3;G.comida=Math.max(0,G.comida-consumoDiario()*3);eventos.push(`<span class="danger-text">🔧 Rueda rota sin repuestos! -3 dias.</span>`);}}
+  else if(r<0.08){if(G.bueyes>2){G.bueyes--;eventos.push(`<span class="event-text">🐂 Un buey murio.</span>`);}}
+  else if(r<0.09){const rob=rand(10,50);G.comida=Math.max(0,G.comida-rob);eventos.push(`<span class="danger-text">🥷 Ladrones robaron ${rob} lb!</span>`);}
+  else if(r<0.10){const per=rand(5,20);G.balas=Math.max(0,G.balas-per);eventos.push(`<span class="event-text">💧 Se mojaron ${per} balas.</span>`);}
+  else if(r<0.12){const enc=rand(5,30);G.comida+=enc;eventos.push(`<span class="success-text">📦 Encontraste ${enc} lb de comida!</span>`);}
+  else if(r<0.13){if(G.ropa>0){G.ropa--;eventos.push(`<span class="event-text">👕 Ropa daniada.</span>`);}}
+  else if(r<0.14){vivos().forEach(p=>p.salud=clamp(p.salud+rand(1,5),0,100));eventos.push(`<span class="success-text">🌿 Buen descanso junto al agua.</span>`);}
+  else if(r<0.145){G.dinero+=rand(5,25);eventos.push(`<span class="success-text">💰 Un viajero te pago por ayuda.</span>`);}
 }
 
-function eventoRelacion(eventos) {
-  if (Math.random()>0.08) return;
-  const companeros = vivos().filter(p=>!p.esLider);
-  if (!companeros.length) return;
-  const p = pick(companeros);
-  const tipo = rand(1,6);
-
-  if (tipo===1 && p.relacion<40) {
-    p.relacion=clamp(p.relacion-rand(3,8),0,100);
-    eventos.push(`<span class="relation-text">😤 ${p.nombre} se queja del liderazgo. Hay tension. (❤-)</span>`);
-  } else if(tipo===2 && p.relacion>50) {
-    p.relacion=clamp(p.relacion+rand(2,5),0,100);
-    eventos.push(`<span class="relation-text">😊 ${p.nombre} te agradece por mantener al grupo unido. (❤+)</span>`);
-  } else if(tipo===3 && companeros.length>=2) {
-    const otro = pick(companeros.filter(c=>c!==p));
-    if(otro){
-      if(Math.random()<0.5){
-        p.relacion=clamp(p.relacion-rand(2,4),0,100);
-        otro.relacion=clamp(otro.relacion-rand(2,4),0,100);
-        eventos.push(`<span class="relation-text">⚡ ${p.nombre} y ${otro.nombre} discutieron. El ambiente esta tenso.</span>`);
-      } else {
-        p.relacion=clamp(p.relacion+rand(1,3),0,100);
-        otro.relacion=clamp(otro.relacion+rand(1,3),0,100);
-        eventos.push(`<span class="relation-text">🤝 ${p.nombre} y ${otro.nombre} se hicieron mas amigos.</span>`);
-      }
-    }
-  } else if(tipo===4 && p.relacion>=80) {
-    const bonus = rand(3,8);
-    vivos().forEach(v=>v.salud=clamp(v.salud+rand(1,3),0,100));
-    eventos.push(`<span class="relation-text">🌟 ${p.nombre} motiva al grupo con su optimismo! Todos se sienten mejor.</span>`);
-  } else if(tipo===5 && p.relacion<25 && G.comida>20) {
-    const robado = rand(5,15);
-    G.comida = Math.max(0, G.comida-robado);
-    eventos.push(`<span class="danger-text">😠 ${p.nombre} robo ${robado} lb de comida por resentimiento!</span>`);
-  } else if(tipo===6 && p.relacion>=60) {
-    p.relacion=clamp(p.relacion+rand(1,4),0,100);
-    const actos = [
-      `${p.nombre} te regalo una flor silvestre que encontro en el camino.`,
-      `${p.nombre} arreglo algo de la carreta sin que se lo pidieras.`,
-      `${p.nombre} cocino para todo el grupo esta noche.`,
-      `${p.nombre} canto una cancion junto al fuego.`,
-    ];
-    eventos.push(`<span class="relation-text">💛 ${pick(actos)} (❤+)</span>`);
-  }
+function eventoRelacion(eventos){
+  if(Math.random()>0.08)return;
+  const companeros=vivos().filter(p=>!p.esLider&&!p.esHijo);
+  if(!companeros.length)return;const p=pick(companeros);const tipo=rand(1,6);
+  if(tipo===1&&p.relacion<40){p.relacion=clamp(p.relacion-rand(3,8),0,100);
+    eventos.push(`<span class="relation-text">😤 ${p.nombre} se queja del liderazgo. (❤-)</span>`);}
+  else if(tipo===2&&p.relacion>50){p.relacion=clamp(p.relacion+rand(2,5),0,100);
+    eventos.push(`<span class="relation-text">😊 ${p.nombre} agradece tu liderazgo. (❤+)</span>`);}
+  else if(tipo===3&&companeros.length>=2){const otro=pick(companeros.filter(c=>c!==p));
+    if(otro){if(Math.random()<0.5){p.relacion=clamp(p.relacion-rand(2,4),0,100);otro.relacion=clamp(otro.relacion-rand(2,4),0,100);
+      eventos.push(`<span class="relation-text">⚡ ${p.nombre} y ${otro.nombre} discutieron.</span>`);}
+    else{p.relacion=clamp(p.relacion+rand(1,3),0,100);otro.relacion=clamp(otro.relacion+rand(1,3),0,100);
+      eventos.push(`<span class="relation-text">🤝 ${p.nombre} y ${otro.nombre} se hicieron amigos.</span>`);}}}
+  else if(tipo===4&&p.relacion>=80){vivos().forEach(v=>v.salud=clamp(v.salud+rand(1,3),0,100));
+    eventos.push(`<span class="relation-text">🌟 ${p.nombre} motiva al grupo!</span>`);}
+  else if(tipo===5&&p.relacion<25&&G.comida>20){const rob=rand(5,15);G.comida=Math.max(0,G.comida-rob);
+    eventos.push(`<span class="danger-text">😠 ${p.nombre} robo ${rob} lb de comida!</span>`);}
+  else if(tipo===6&&p.relacion>=60){p.relacion=clamp(p.relacion+rand(1,4),0,100);
+    eventos.push(`<span class="relation-text">💛 ${p.nombre} hizo algo lindo por el grupo. (❤+)</span>`);}
 }
 
-function mostrarResumenViaje(km, dias, eventos, siguiente) {
-  let html = `<div class="section-title">RESUMEN DEL TRAMO</div>`;
-  html += `<div>Avanzaste <span class="success-text">${km} km</span> en ${dias} dias.</div>`;
-  html += `<div>Clima: <span class="info-text">${G.climaActual}</span></div><br>`;
-  if(eventos.length) eventos.forEach(e=>html+=`<div style="margin:3px 0">* ${e}</div>`);
+function mostrarResumenViaje(km,dias,eventos,siguiente){
+  let html=`<div class="section-title">RESUMEN DEL TRAMO</div>`;
+  html+=`<div>Avanzaste <span class="success-text">${km} km</span> en ${dias} dias.</div>`;
+  html+=`<div>Clima: <span class="info-text">${G.climaActual}</span></div><br>`;
+  if(eventos.length)eventos.forEach(e=>html+=`<div style="margin:3px 0">* ${e}</div>`);
   else html+=`<div>El viaje transcurrio sin novedades.</div>`;
-  setText(html);
-  setChoices([{text:"Continuar", action:siguiente}]);
+  setText(html);setChoices([{text:"Continuar",action:siguiente}]);
 }
 
-function cruzarRio(landmark) {
-  const prof = landmark.profundidad||1.0;
-  let html = `<div class="section-title">🌊 ${landmark.nombre.toUpperCase()}</div>`;
-  html += `<div>Profundidad estimada: ${prof.toFixed(1)} metros</div><br>`;
-  html += `<div class="info-text">Como queres cruzar?</div>`;
+function cruzarRio(landmark){
+  const prof=landmark.profundidad||1.0;
+  let html=`<div class="section-title">🌊 ${landmark.nombre.toUpperCase()}</div>`;
+  html+=`<div>Profundidad: ${prof.toFixed(1)} metros</div><br>`;
+  const embarazadas=vivos().filter(p=>p.embarazada);
+  if(embarazadas.length) html+=`<div class="baby-text">🤰 Cuidado: ${embarazadas.map(p=>p.nombre).join(', ')} ${embarazadas.length>1?'estan embarazadas':'esta embarazada'}.</div><br>`;
   setText(html);
-
-  const costo = Math.floor(10+prof*10);
+  const costo=Math.floor(10+prof*10);
   setChoices([
-    {text:`Vadear el rio (gratis, riesgoso)`, action:()=>{
-      const riesgo=prof/3;
-      const ev=[];
-      if(Math.random()<riesgo){
-        const perdida=rand(20,60);G.comida=Math.max(0,G.comida-perdida);
-        G.ropa=Math.max(0,G.ropa-rand(0,2));
-        ev.push(`<span class="danger-text">El rio arrastro provisiones! (-${perdida} lb comida)</span>`);
-        if(Math.random()<riesgo*0.3&&vivos().length){
-          const v=pick(vivos());v.salud-=rand(15,40);
+    {text:`Vadear (gratis, riesgoso)`,action:()=>{
+      const riesgo=prof/3;const ev=[];
+      if(Math.random()<riesgo){const perdida=rand(20,60);G.comida=Math.max(0,G.comida-perdida);G.ropa=Math.max(0,G.ropa-rand(0,2));
+        ev.push(`<span class="danger-text">El rio arrastro provisiones! (-${perdida} lb)</span>`);
+        if(Math.random()<riesgo*0.3&&vivos().length){const v=pick(vivos());v.salud-=rand(15,40);
           ev.push(`<span class="danger-text">${v.nombre} casi se ahoga!</span>`);
-          if(!v.esLider) v.relacion=clamp(v.relacion-rand(3,8),0,100);
-        }
-      } else {
-        ev.push(`<span class="success-text">Cruzaste sin problemas.</span>`);
-        vivos().filter(p=>!p.esLider).forEach(p=>p.relacion=clamp(p.relacion+rand(0,2),0,100));
-      }
-      updateHUD();
-      mostrarResumenViaje(0,0,ev,menuPrincipal);
+          if(v.embarazada&&Math.random()<0.3){v.embarazada=false;v.diasEmbarazo=0;
+            ev.push(`<span class="danger-text">💔 ${v.nombre} perdio el bebe en el cruce...</span>`);}}
+      }else{ev.push(`<span class="success-text">Cruzaste sin problemas.</span>`);}
+      updateHUD();mostrarResumenViaje(0,0,ev,menuPrincipal);
     }},
-    {text:`Flotar la carreta ($${costo})`, action:()=>{
-      const ev=[];
-      if(G.dinero>=costo){
-        G.dinero-=costo;
-        if(Math.random()<0.1){G.comida=Math.max(0,G.comida-rand(5,15));
-          ev.push(`<span class="event-text">Se mojo algo de comida. (-$${costo})</span>`);}
+    {text:`Flotar ($${costo})`,action:()=>{
+      const ev=[];if(G.dinero>=costo){G.dinero-=costo;
+        if(Math.random()<0.1){G.comida=Math.max(0,G.comida-rand(5,15));ev.push(`<span class="event-text">Se mojo comida. (-$${costo})</span>`);}
         else ev.push(`<span class="success-text">Cruce perfecto. (-$${costo})</span>`);
-      } else {
-        ev.push(`<span class="danger-text">No tenes plata! Vadeaste con dificultad.</span>`);
-        G.comida=Math.max(0,G.comida-rand(10,30));
-      }
-      updateHUD();
-      mostrarResumenViaje(0,0,ev,menuPrincipal);
+      }else{ev.push(`<span class="danger-text">Sin plata! Vadeaste.</span>`);G.comida=Math.max(0,G.comida-rand(10,30));}
+      updateHUD();mostrarResumenViaje(0,0,ev,menuPrincipal);
     }},
-    {text:`Esperar (1-3 dias)`, action:()=>{
-      const d=rand(1,3);G.dia+=d;G.comida=Math.max(0,G.comida-consumoDiario()*d);
-      const ev=[];
-      if(Math.random()<0.5) ev.push(`<span class="success-text">Esperaste ${d} dias y el rio bajo. Cruzaste bien.</span>`);
-      else {ev.push(`<span class="event-text">El rio no bajo mucho. Cruzaste con dificultad.</span>`);
-        G.comida=Math.max(0,G.comida-rand(5,20));}
-      updateHUD();
-      mostrarResumenViaje(0,0,ev,menuPrincipal);
+    {text:`Esperar (1-3 dias)`,action:()=>{
+      const d=rand(1,3);G.dia+=d;G.comida=Math.max(0,G.comida-consumoDiario()*d);const ev=[];
+      if(Math.random()<0.5)ev.push(`<span class="success-text">Esperaste ${d} dias. Cruzaste bien.</span>`);
+      else{ev.push(`<span class="event-text">Rio no bajo. Cruzaste con dificultad.</span>`);G.comida=Math.max(0,G.comida-rand(5,20));}
+      updateHUD();mostrarResumenViaje(0,0,ev,menuPrincipal);
     }},
   ]);
 }
 
-function llegarFuerte(landmark) {
-  setText(`<div class="section-title">🏰 ${landmark.nombre.toUpperCase()}</div>
-    <div>Llegaste a un fuerte. Tiene una tienda con provisiones.</div>`);
-  setChoices([
-    {text:"Visitar la tienda",action:()=>tienda(true)},
-    {text:"Seguir de largo",action:menuPrincipal},
-  ]);
+function llegarFuerte(landmark){
+  setText(`<div class="section-title">🏰 ${landmark.nombre.toUpperCase()}</div><div>Tiene una tienda con provisiones.</div>`);
+  setChoices([{text:"Visitar tienda",action:()=>tienda(true)},{text:"Seguir",action:menuPrincipal}]);
 }
 
-function pantallaVictoria() {
-  const sobrevivientes = vivos();
-  const {mes,dia} = getFecha();
-  const muertos = G.grupo.filter(p=>!p.vivo);
+function pantallaVictoria(){
+  const sobrevivientes=vivos();const{mes,dia}=getFecha();const muertos=G.grupo.filter(p=>!p.vivo);
+  const hijos=sobrevivientes.filter(p=>p.esHijo);
+  const parejas=sobrevivientes.filter(p=>p.esPareja);
 
-  let pBase=500, pSalud=sobrevivientes.reduce((a,p)=>a+p.salud,0)*2,
-    pSob=sobrevivientes.length*100, pComida=G.comida, pDinero=Math.floor(G.dinero),
-    pRel=sobrevivientes.filter(p=>!p.esLider).reduce((a,p)=>a+Math.floor(p.relacion/10),0)*20;
-  const sub=pBase+pSalud+pSob+pComida+pDinero+pRel;
+  let pBase=500,pSalud=sobrevivientes.reduce((a,p)=>a+p.salud,0)*2,
+    pSob=sobrevivientes.length*100,pComida=G.comida,pDinero=Math.floor(G.dinero),
+    pRel=sobrevivientes.filter(p=>!p.esLider).reduce((a,p)=>a+Math.floor(p.relacion/10),0)*20,
+    pRomance=parejas.reduce((a,p)=>a+Math.floor(p.romance/10),0)*30,
+    pHijos=hijos.length*200;
+  const sub=pBase+pSalud+pSob+pComida+pDinero+pRel+pRomance+pHijos;
   const total=sub*G.profesion.mult;
 
-  let html = `<div style="text-align:center">
+  let html=`<div style="text-align:center">
     <div class="title-text" style="font-size:16px;color:#90ee90">FELICIDADES!</div><br>
-    <div style="font-size:24px">🎉 Llegaste al Valle de Willamette, Oregon! 🎉</div><br>
+    <div style="font-size:24px">🎉 Llegaste a Oregon! 🎉</div><br>
     <div>Fecha: ${dia} de ${mes}, 1848</div>
-    <div>Sobrevivientes: ${sobrevivientes.length} de ${G.grupo.length}</div><br>`;
+    <div>Sobrevivientes: ${sobrevivientes.length} de ${G.grupo.length}</div>`;
 
-  sobrevivientes.forEach(p => {
-    html += `<div class="success-text">${p.nombre} - Salud: ${p.salud} ${!p.esLider?'❤'+p.relacion:''}</div>`;
-  });
-  muertos.forEach(p => {
-    html += `<div class="danger-text">💀 ${p.nombre} - no sobrevivio</div>`;
-  });
+  if(parejas.length) html+=`<div class="romance-text">💍 Parejas: ${parejas.map(p=>p.nombre).join(', ')}</div>`;
+  if(hijos.length) html+=`<div class="baby-text">👶 Hijos nacidos en el camino: ${hijos.map(p=>p.nombre).join(', ')}</div>`;
 
-  html += `<br>
-    <div style="text-align:left;background:#1a0e00;padding:10px;border-radius:4px">
+  html+='<br>';
+  sobrevivientes.forEach(p=>{
+    let extra='';if(p.esPareja)extra=' 💍';if(p.esHijo)extra=' 👶';
+    html+=`<div class="success-text">${generoIcon(p)} ${p.nombre} - ${p.salud}HP${extra}</div>`;
+  });
+  muertos.forEach(p=>html+=`<div class="danger-text">💀 ${p.nombre}</div>`);
+
+  html+=`<br><div style="text-align:left;background:#1a0e00;padding:10px;border-radius:4px">
     <div class="section-title">PUNTUACION</div>
     <div>Llegar a Oregon: ${pBase}</div>
     <div>Salud del grupo: ${pSalud}</div>
     <div>Sobrevivientes: ${pSob}</div>
     <div>Relaciones: ${pRel}</div>
-    <div>Comida restante: ${pComida}</div>
-    <div>Dinero restante: ${pDinero}</div>
+    <div class="romance-text">Romance: ${pRomance}</div>
+    <div class="baby-text">Hijos nacidos: ${pHijos} (${hijos.length} x 200)</div>
+    <div>Comida: ${pComida}</div>
+    <div>Dinero: ${pDinero}</div>
     <div>Multiplicador (${G.profesion.nombre}): x${G.profesion.mult}</div>
     <br><div style="font-size:24px;color:#d4a843">TOTAL: ${total} puntos</div>
     </div></div>`;
 
-  setText(html);
-  borrarGuardado();
-  setChoices([{text:"Jugar de nuevo",action:pantallaInicio}]);
+  setText(html);borrarGuardado();setChoices([{text:"Jugar de nuevo",action:pantallaInicio}]);
 }
 
-function pantallaDerrota() {
-  const {mes,dia} = getFecha();
-  let html = `<div style="text-align:center">
+function pantallaDerrota(){
+  const{mes,dia}=getFecha();
+  let html=`<div style="text-align:center">
     <div class="title-text" style="font-size:16px;color:#ff6b6b">GAME OVER</div><br>
     <div style="font-size:24px">💀</div><br>
-    <div>Nadie de tu grupo sobrevivio el viaje.</div>
-    <div>Llegaste hasta el km ${G.km} de 2800.</div>
-    <div>Fecha: ${dia} de ${mes}, 1848</div><br>
-    <div>Los que partieron:</div>`;
-  G.grupo.forEach(p => html += `<div>- ${p.nombre}</div>`);
-  html += `<br><div class="event-text">El sendero se cobra otro precio...</div></div>`;
-  setText(html);
-  borrarGuardado();
-  setChoices([{text:"Intentar de nuevo",action:pantallaInicio}]);
+    <div>Nadie sobrevivio. km ${G.km}/2800.</div>
+    <div>${dia} de ${mes}, 1848</div><br>`;
+  G.grupo.forEach(p=>html+=`<div>${generoIcon(p)} ${p.nombre} (${generoLabel(p)})</div>`);
+  html+=`<br><div class="event-text">El sendero se cobra otro precio...</div></div>`;
+  setText(html);borrarGuardado();setChoices([{text:"Intentar de nuevo",action:pantallaInicio}]);
 }
 
-// --- INICIO ---
 pantallaInicio();
 </script>
 </body>
