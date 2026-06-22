@@ -325,9 +325,12 @@ class Juego:
         print(f"  {barra} {self.km_recorridos}/{self.km_totales} km")
         print()
 
-        siguiente = LANDMARKS[self.siguiente_landmark]
-        dist_sig = siguiente["km"] - self.km_recorridos
-        print(f"  Proximo: {siguiente['nombre']} ({dist_sig} km)")
+        if self.siguiente_landmark < len(LANDMARKS):
+            siguiente = LANDMARKS[self.siguiente_landmark]
+            dist_sig = siguiente["km"] - self.km_recorridos
+            print(f"  Proximo: {siguiente['nombre']} ({dist_sig} km)")
+        else:
+            print(f"  Casi llegas a Oregon!")
         print()
 
         linea("-")
@@ -490,7 +493,8 @@ class Juego:
             self.comida -= consumo
             if self.comida <= 0:
                 self.comida = 0
-                eventos.append("Se acabó la comida!")
+                if "Se acabo la comida!" not in eventos:
+                    eventos.append("Se acabo la comida!")
                 for p in self.vivos():
                     p.salud -= random.randint(8, 15)
 
@@ -547,6 +551,8 @@ class Juego:
         return km_total, dias_viaje, eventos
 
     def evento_aleatorio(self, eventos):
+        if not self.vivos():
+            return
         r = random.random()
 
         if r < 0.04:
@@ -565,6 +571,8 @@ class Juego:
                 eventos.append("Se rompio una rueda y no tienes repuestos! Perdiste 3 dias reparando.")
                 self.dia += 3
                 self.comida -= self.consumo_comida_diario() * 3
+                if self.comida < 0:
+                    self.comida = 0
 
         elif r < 0.08:
             if self.bueyes > 2:
@@ -587,8 +595,8 @@ class Juego:
             eventos.append(f"Encontraste {encontrado} lb de comida en una carreta abandonada.")
 
         elif r < 0.13:
-            self.ropa = max(0, self.ropa - 1)
-            if self.ropa >= 0:
+            if self.ropa > 0:
+                self.ropa -= 1
                 eventos.append("Un juego de ropa se danio en el camino.")
 
         elif r < 0.14:
@@ -620,7 +628,7 @@ class Juego:
                 self.comida = max(0, self.comida - perdida_comida)
                 self.ropa = max(0, self.ropa - random.randint(0, 2))
                 eventos.append(f"El rio arrastro parte de tus provisiones! (-{perdida_comida} lb comida)")
-                if random.random() < riesgo * 0.3:
+                if random.random() < riesgo * 0.3 and self.vivos():
                     victima = random.choice(self.vivos())
                     victima.salud -= random.randint(15, 40)
                     eventos.append(f"{victima.nombre} casi se ahoga cruzando el rio!")
