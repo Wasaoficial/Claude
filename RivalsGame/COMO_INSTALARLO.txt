@@ -28,6 +28,7 @@ Crea un Script (NO LocalScript) para cada uno:
 - ShopManager.lua
 - ArenaBuilder.lua
 - LeaderboardManager.lua
+- RankedManager.lua
 
 PASO 5: COPIAR SCRIPTS DEL CLIENTE
 - En StarterPlayerScripts:
@@ -39,8 +40,16 @@ PASO 5: COPIAR SCRIPTS DEL CLIENTE
   -> Pega el contenido de StarterGui/MainHUD.lua
   -> Crea un LocalScript llamado "ShopGUI"
   -> Pega el contenido de StarterGui/ShopGUI.lua
+  -> Crea un LocalScript llamado "RankedGUI"
+  -> Pega el contenido de StarterGui/RankedGUI.lua
+  -> Crea un LocalScript llamado "ComboHUD"
+  -> Pega el contenido de StarterGui/ComboHUD.lua
 
-PASO 6: CONTROLES DEL JUEGO
+PASO 6: COPIAR MODULO DE COMBOS
+- Dentro de ReplicatedStorage/Modules, crea un ModuleScript llamado "ComboSystem"
+  -> Pega el contenido de ReplicatedStorage/Modules/ComboSystem.lua
+
+PASO 7: CONTROLES DEL JUEGO
 - Click izquierdo / M  = Golpe ligero
 - Click derecho / N    = Golpe pesado
 - Q                    = Especial arriba (lanzar)
@@ -114,13 +123,17 @@ RivalsGame/
 │   ├── DataManager.lua          (Guardado de datos - DataStore)
 │   ├── ShopManager.lua          (Tienda de personajes)
 │   ├── ArenaBuilder.lua         (Genera las arenas)
-│   └── LeaderboardManager.lua   (Tabla de clasificación)
+│   ├── LeaderboardManager.lua   (Tabla de clasificación)
+│   └── RankedManager.lua        (Sistema ranked con ELO)
 ├── ReplicatedStorage/
 │   └── Modules/
-│       ├── GameConfig.lua       (Config de personajes y arenas)
-│       └── CombatSystem.lua     (Cálculos de combate/knockback)
+│       ├── GameConfig.lua       (Config de personajes, arenas y ranked)
+│       ├── CombatSystem.lua     (Cálculos de combate/knockback)
+│       └── ComboSystem.lua      (Sistema de combos)
 ├── StarterGui/
 │   ├── MainHUD.lua              (HUD de pelea + selección personaje)
-│   └── ShopGUI.lua              (Interfaz de tienda)
+│   ├── ShopGUI.lua              (Interfaz de tienda)
+│   ├── RankedGUI.lua            (Interfaz ranked - cola, VS, resultados)
+│   └── ComboHUD.lua             (Contador de combos visual)
 └── StarterPlayerScripts/
     └── CombatClient.lua         (Input del jugador - teclado/móvil)

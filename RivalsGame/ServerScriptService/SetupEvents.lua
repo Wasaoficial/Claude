@@ -15,6 +15,11 @@ local eventNames = {
 	"BuyCharacter",
 	"ShopData",
 	"RequestShop",
+	"ComboUpdate",
+	"RankedQueue",
+	"RankedMatchStart",
+	"RankedMatchEnd",
+	"RankedUpdate",
 }
 
 for _, name in ipairs(eventNames) do

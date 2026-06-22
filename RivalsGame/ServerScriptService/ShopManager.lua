@@ -13,6 +13,11 @@ local ShopItems = {
 		{ Index = 3, Name = "Shadow", Price = 500 },
 		{ Index = 4, Name = "Titan", Price = 750 },
 		{ Index = 5, Name = "Volt", Price = 600 },
+		{ Index = 6, Name = "Aqua", Price = 800 },
+		{ Index = 7, Name = "Gaia", Price = 900 },
+		{ Index = 8, Name = "Nova", Price = 1000 },
+		{ Index = 9, Name = "Phantom", Price = 1200 },
+		{ Index = 10, Name = "Rex", Price = 1500 },
 	},
 }
 

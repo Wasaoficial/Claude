@@ -135,17 +135,22 @@ subtitle.TextSize = 18
 subtitle.Font = Enum.Font.GothamMedium
 subtitle.Parent = charSelectScreen
 
-local charGrid = Instance.new("Frame")
+local charGrid = Instance.new("ScrollingFrame")
 charGrid.Name = "CharGrid"
-charGrid.Size = UDim2.new(0.8, 0, 0, 200)
-charGrid.Position = UDim2.new(0.1, 0, 0, 150)
+charGrid.Size = UDim2.new(0.9, 0, 0, 420)
+charGrid.Position = UDim2.new(0.05, 0, 0, 140)
 charGrid.BackgroundTransparency = 1
+charGrid.ScrollBarThickness = 4
+charGrid.ScrollingDirection = Enum.ScrollingDirection.Y
+charGrid.AutomaticCanvasSize = Enum.AutomaticSize.Y
+charGrid.CanvasSize = UDim2.new(0, 0, 0, 0)
 charGrid.Parent = charSelectScreen
 
-local gridLayout = Instance.new("UIListLayout")
-gridLayout.FillDirection = Enum.FillDirection.Horizontal
+local gridLayout = Instance.new("UIGridLayout")
+gridLayout.CellSize = UDim2.new(0, 130, 0, 180)
+gridLayout.CellPadding = UDim2.new(0, 12, 0, 12)
 gridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-gridLayout.Padding = UDim.new(0, 15)
+gridLayout.SortOrder = Enum.SortOrder.LayoutOrder
 gridLayout.Parent = charGrid
 
 local charColors = {
@@ -154,6 +159,11 @@ local charColors = {
 	Color3.fromRGB(80, 0, 120),    -- Shadow: morado
 	Color3.fromRGB(180, 140, 50),  -- Titan: dorado
 	Color3.fromRGB(255, 230, 0),   -- Volt: amarillo
+	Color3.fromRGB(0, 180, 220),   -- Aqua: cyan
+	Color3.fromRGB(80, 160, 50),   -- Gaia: verde
+	Color3.fromRGB(200, 50, 200),  -- Nova: magenta
+	Color3.fromRGB(60, 60, 80),    -- Phantom: gris oscuro
+	Color3.fromRGB(150, 50, 30),   -- Rex: marrón
 }
 
 local selectedIndex = 1

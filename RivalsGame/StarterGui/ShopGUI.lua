@@ -100,6 +100,11 @@ local charColors = {
 	Color3.fromRGB(80, 0, 120),
 	Color3.fromRGB(180, 140, 50),
 	Color3.fromRGB(255, 230, 0),
+	Color3.fromRGB(0, 180, 220),
+	Color3.fromRGB(80, 160, 50),
+	Color3.fromRGB(200, 50, 200),
+	Color3.fromRGB(60, 60, 80),
+	Color3.fromRGB(150, 50, 30),
 }
 
 local function populateShop(shopData)

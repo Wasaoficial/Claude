@@ -3,6 +3,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local GameConfig = require(ReplicatedStorage.Modules.GameConfig)
 local CombatSystem = require(ReplicatedStorage.Modules.CombatSystem)
+local ComboSystem = require(ReplicatedStorage.Modules.ComboSystem)
 
 -- RemoteEvents
 local Events = ReplicatedStorage:WaitForChild("Events")
@@ -13,6 +14,7 @@ local MatchStartEvent = Events:WaitForChild("MatchStart")
 local MatchEndEvent = Events:WaitForChild("MatchEnd")
 local SelectCharacterEvent = Events:WaitForChild("SelectCharacter")
 local UpdateHUDEvent = Events:WaitForChild("UpdateHUD")
+local ComboEvent = Events:WaitForChild("ComboUpdate")
 
 -- Estado del juego
 local MatchState = {
@@ -73,13 +75,19 @@ local function ProcessAttack(attacker, attackType)
 			local victimChar = player.Character
 			if victimChar and victimChar:FindFirstChild("HumanoidRootPart") then
 				if CombatSystem.IsInRange(attackerChar, victimChar, attackData.Range) then
-					data.DamagePercent = data.DamagePercent + attackData.Damage
+					local combo = ComboSystem.RegisterHit(attacker.UserId, player.UserId, attackType)
+					local damageMultiplier = ComboSystem.GetDamageMultiplier(combo)
+					local kbMultiplier = ComboSystem.GetKnockbackMultiplier(combo)
+
+					local finalDamage = attackData.Damage * damageMultiplier
+					data.DamagePercent = data.DamagePercent + finalDamage
 
 					local direction = CombatSystem.GetKnockbackDirection(attackerChar, victimChar, attackType)
-					local force = CombatSystem.CalculateKnockback(data.DamagePercent, attackData.Knockback)
+					local force = CombatSystem.CalculateKnockback(data.DamagePercent, attackData.Knockback) * kbMultiplier
 					CombatSystem.ApplyKnockback(victimChar, direction, force)
 
 					DamageEvent:FireAllClients(player, data.DamagePercent, attacker)
+					ComboEvent:FireAllClients(attacker, player, combo.Hits, finalDamage)
 
 					for p in pairs(MatchState.Players) do
 						UpdateHUDEvent:FireClient(p, MatchState.Players)
@@ -103,6 +111,7 @@ local function CheckAllBlastZones()
 		if char and CombatSystem.CheckBlastZone(char) then
 			data.Stocks = data.Stocks - 1
 			data.DamagePercent = 0
+			ComboSystem.ResetAllForPlayer(player.UserId)
 
 			StockLostEvent:FireAllClients(player, data.Stocks)
 
@@ -198,6 +207,7 @@ local function StartMatch(players, mode)
 		while MatchState.InProgress do
 			task.wait(0.1)
 			CheckAllBlastZones()
+			ComboSystem.CleanupExpired()
 
 			local alive = GetAlivePlayers()
 			if #alive <= 1 then
