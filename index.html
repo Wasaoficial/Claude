@@ -120,6 +120,13 @@ body {
 .map-landmark.current { border-left-color: #d4a843; color: #d4a843; font-weight: bold; }
 .map-landmark.future { color: #7a6a50; }
 
+.actions-display {
+  background: #1a0e00; border: 1px solid #5a3a10; border-radius: 4px;
+  padding: 6px 12px; margin: 8px 0; text-align: center; font-size: 18px;
+}
+.actions-display .actions-count { color: #d4a843; font-size: 22px; }
+.actions-display .actions-zero { color: #ff6b6b; }
+
 @media (max-width: 600px) {
   body { font-size: 16px; }
   .choice-btn { font-size: 16px; padding: 8px 12px; }
@@ -215,6 +222,7 @@ function nuevoJuego() {
     turno: 0,
     parejas: [],
     hijosNacidos: 0,
+    acciones: 3,
   };
 }
 
@@ -335,7 +343,13 @@ function flashSave() {
 }
 
 function guardar() { localStorage.setItem('oregon_save', JSON.stringify(G)); flashSave(); }
-function cargar() { const d=localStorage.getItem('oregon_save'); if(!d)return false; G=JSON.parse(d); return true; }
+function cargar() {
+  const d=localStorage.getItem('oregon_save');
+  if(!d) return false;
+  G=JSON.parse(d);
+  if (G.acciones === undefined) G.acciones = 3;
+  return true;
+}
 function borrarGuardado() { localStorage.removeItem('oregon_save'); }
 
 function healthColor(hp) { return hp>70?'#90ee90':hp>40?'#ffa500':'#ff6b6b'; }
@@ -364,6 +378,455 @@ function personaHTML(p, showRel) {
       ${relHTML}
     </span>
   </div>`;
+}
+
+// =============================================
+// FEATURE 1: VISUAL MAP (canvas-based)
+// =============================================
+
+function dibujarMapa() {
+  const W = 850, H = 200;
+  const canvas = document.createElement('canvas');
+  canvas.width = W;
+  canvas.height = H;
+  canvas.style.display = 'block';
+  canvas.style.margin = '0 auto 10px auto';
+  canvas.style.borderRadius = '6px';
+  canvas.style.border = '1px solid #5a3a10';
+  canvas.style.maxWidth = '100%';
+  const ctx = canvas.getContext('2d');
+
+  // Background
+  const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+  bgGrad.addColorStop(0, '#1a2a3a');
+  bgGrad.addColorStop(0.55, '#2a3a2a');
+  bgGrad.addColorStop(1, '#1a2a10');
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Trail path parameters
+  const padL = 40, padR = 40;
+  const trailW = W - padL - padR;
+  const totalKm = 2800;
+
+  function kmToX(km) { return padL + (km / totalKm) * trailW; }
+  function trailY(x) {
+    const baseY = H * 0.55;
+    return baseY + Math.sin(x * 0.012) * 18 + Math.sin(x * 0.005) * 12;
+  }
+
+  // Draw the winding trail path
+  ctx.beginPath();
+  ctx.strokeStyle = '#8b6914';
+  ctx.lineWidth = 3;
+  ctx.setLineDash([6, 4]);
+  for (let px = padL; px <= W - padR; px++) {
+    if (px === padL) ctx.moveTo(px, trailY(px));
+    else ctx.lineTo(px, trailY(px));
+  }
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Draw travelled portion as solid brighter line
+  const playerX = kmToX(Math.min(G.km, totalKm));
+  ctx.beginPath();
+  ctx.strokeStyle = '#d4a843';
+  ctx.lineWidth = 3;
+  for (let px = padL; px <= playerX; px++) {
+    if (px === padL) ctx.moveTo(px, trailY(px));
+    else ctx.lineTo(px, trailY(px));
+  }
+  ctx.stroke();
+
+  // Tooltip data storage
+  const landmarkPositions = [];
+
+  // Draw landmarks
+  LANDMARKS.forEach((lm, i) => {
+    const x = kmToX(lm.km);
+    const y = trailY(x);
+    let isVisited = lm.km <= G.km;
+    let isCurrent = (i === G.sigLandmark);
+    let isFuture = !isVisited && !isCurrent;
+
+    // Determine type and draw shape
+    if (lm.rio) {
+      // River: blue circle with wave
+      ctx.fillStyle = isVisited ? '#4090ff' : isCurrent ? '#ffd700' : '#3a5a7a';
+      ctx.beginPath();
+      ctx.arc(x, y, 7, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = isVisited ? '#60b0ff' : isCurrent ? '#ffe860' : '#4a6a8a';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(x - 5, y - 10);
+      ctx.quadraticCurveTo(x - 2, y - 14, x + 1, y - 10);
+      ctx.quadraticCurveTo(x + 4, y - 6, x + 7, y - 10);
+      ctx.stroke();
+    } else if (lm.fuerte) {
+      // Fort: brown square
+      const s = 6;
+      ctx.fillStyle = isVisited ? '#90ee90' : isCurrent ? '#ffd700' : '#6a5a40';
+      ctx.fillRect(x - s, y - s, s * 2, s * 2);
+      ctx.strokeStyle = isVisited ? '#b0ffb0' : isCurrent ? '#ffe860' : '#8a7a60';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(x - s, y - s, s * 2, s * 2);
+      // Flag on top
+      ctx.fillStyle = ctx.strokeStyle;
+      ctx.fillRect(x, y - s - 8, 1, 8);
+      ctx.fillRect(x + 1, y - s - 8, 5, 3);
+    } else if (lm.nombre.includes('Mountain') || lm.nombre.includes('Pass') || lm.nombre.includes('Rock') || lm.nombre.includes('Blue Mountains')) {
+      // Mountain: triangle
+      ctx.fillStyle = isVisited ? '#90ee90' : isCurrent ? '#ffd700' : '#6a6a6a';
+      ctx.beginPath();
+      ctx.moveTo(x, y - 10);
+      ctx.lineTo(x - 8, y + 4);
+      ctx.lineTo(x + 8, y + 4);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = isVisited ? '#b0ffb0' : isCurrent ? '#ffe860' : '#8a8a8a';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      // Snow cap
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.moveTo(x, y - 10);
+      ctx.lineTo(x - 3, y - 5);
+      ctx.lineTo(x + 3, y - 5);
+      ctx.closePath();
+      ctx.fill();
+    } else {
+      // Regular landmark: circle
+      ctx.fillStyle = isVisited ? '#90ee90' : isCurrent ? '#ffd700' : '#6a6a6a';
+      ctx.beginPath();
+      ctx.arc(x, y, 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = isVisited ? '#b0ffb0' : isCurrent ? '#ffe860' : '#8a8a8a';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+
+    landmarkPositions.push({x, y, nombre: lm.nombre, km: lm.km, rio: lm.rio, fuerte: lm.fuerte});
+
+    // Draw name for first, last, current, and forts
+    if (i === 0 || i === LANDMARKS.length - 1 || isCurrent) {
+      ctx.fillStyle = isCurrent ? '#ffd700' : isVisited ? '#90ee90' : '#7a6a50';
+      ctx.font = '11px VT323, monospace';
+      ctx.textAlign = 'center';
+      const nameY = (y < H * 0.5) ? y + 18 : y - 14;
+      ctx.fillText(lm.nombre.length > 18 ? lm.nombre.substring(0,16)+'..' : lm.nombre, x, nameY);
+    }
+  });
+
+  // Draw player wagon
+  const wx = kmToX(Math.min(G.km, totalKm));
+  const wy = trailY(wx);
+  ctx.font = '20px serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('🛒', wx, wy - 18);
+
+  // Draw position label
+  ctx.fillStyle = '#e8d5b0';
+  ctx.font = '13px VT323, monospace';
+  ctx.textAlign = 'right';
+  ctx.fillText(`${G.km} km`, W - 10, H - 8);
+
+  // Tooltip handling
+  const tooltipDiv = document.createElement('div');
+  tooltipDiv.style.cssText = 'position:absolute;background:#3a2410;border:1px solid #8b6914;color:#e8d5b0;padding:4px 8px;border-radius:4px;font-size:14px;pointer-events:none;display:none;z-index:10;font-family:VT323,monospace;white-space:nowrap;';
+
+  const wrapper = document.createElement('div');
+  wrapper.style.position = 'relative';
+  wrapper.style.display = 'inline-block';
+  wrapper.style.margin = '0 auto';
+  wrapper.style.width = W + 'px';
+  wrapper.style.maxWidth = '100%';
+  wrapper.appendChild(canvas);
+  wrapper.appendChild(tooltipDiv);
+
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = W / rect.width;
+    const mx = (e.clientX - rect.left) * scaleX;
+    const my = (e.clientY - rect.top) * (H / rect.height);
+    let found = null;
+    for (const lp of landmarkPositions) {
+      const dx = mx - lp.x, dy = my - lp.y;
+      if (dx*dx + dy*dy < 200) { found = lp; break; }
+    }
+    if (found) {
+      let extra = '';
+      if (found.rio) extra = ' ~rio~';
+      if (found.fuerte) extra = ' [fuerte]';
+      tooltipDiv.textContent = `${found.nombre} (${found.km} km)${extra}`;
+      tooltipDiv.style.display = 'block';
+      tooltipDiv.style.left = Math.min(found.x, W - 150) + 'px';
+      tooltipDiv.style.top = (found.y - 30) + 'px';
+    } else {
+      tooltipDiv.style.display = 'none';
+    }
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    tooltipDiv.style.display = 'none';
+  });
+
+  return wrapper;
+}
+
+// =============================================
+// FEATURE 3: TRAVEL ANIMATION
+// =============================================
+
+function animacionViaje(callback) {
+  const W = 850, H = 180;
+  const canvas = document.createElement('canvas');
+  canvas.width = W;
+  canvas.height = H;
+  canvas.style.display = 'block';
+  canvas.style.margin = '0 auto';
+  canvas.style.borderRadius = '6px';
+  canvas.style.border = '1px solid #5a3a10';
+  canvas.style.maxWidth = '100%';
+  const ctx = canvas.getContext('2d');
+
+  setText('');
+  $('text-area').appendChild(canvas);
+  const statusDiv = document.createElement('div');
+  statusDiv.style.cssText = 'text-align:center;margin-top:10px;color:#d4a843;font-size:20px;';
+  statusDiv.textContent = 'Viajando...';
+  $('text-area').appendChild(statusDiv);
+  setChoices([]);
+
+  const clima = G.climaActual;
+  const isSnow = (clima === 'nieve');
+  const isRain = (clima === 'lluvia' || clima === 'tormenta');
+
+  // Build group emojis for walking behind the wagon
+  const groupEmojis = [];
+  vivos().forEach(p => {
+    if (p.embarazada) { groupEmojis.push('🤰'); }
+    else if (p.esHijo) { groupEmojis.push(p.genero === 'M' ? '👦' : '👧'); }
+    else if (p.esLider) { groupEmojis.push(p.genero === 'M' ? '👨' : '👩'); }
+    else { groupEmojis.push(p.genero === 'M' ? '👨' : '👩'); }
+  });
+
+  // Particles for weather
+  const particles = [];
+  function spawnParticle() {
+    if (isSnow) {
+      particles.push({
+        x: Math.random() * W,
+        y: -5,
+        vx: Math.random() * 0.5 - 0.25,
+        vy: Math.random() * 1.5 + 0.5,
+        size: Math.random() * 3 + 1,
+        type: 'snow'
+      });
+    } else if (isRain) {
+      particles.push({
+        x: Math.random() * W,
+        y: -5,
+        vx: -1,
+        vy: Math.random() * 4 + 4,
+        len: Math.random() * 8 + 4,
+        type: 'rain'
+      });
+    }
+  }
+
+  // Scrolling trees/scenery
+  const trees = [];
+  for (let i = 0; i < 12; i++) {
+    trees.push({
+      x: Math.random() * W,
+      scale: Math.random() * 0.5 + 0.5,
+      type: Math.random() < 0.7 ? 'tree' : 'bush'
+    });
+  }
+
+  // Clouds
+  const clouds = [];
+  for (let i = 0; i < 4; i++) {
+    clouds.push({
+      x: Math.random() * W,
+      y: rand(10, 45),
+      w: rand(40, 80),
+      speed: Math.random() * 0.3 + 0.1
+    });
+  }
+
+  // Birds
+  const birds = [];
+  for (let i = 0; i < 3; i++) {
+    birds.push({
+      x: Math.random() * W,
+      y: rand(15, 50),
+      phase: Math.random() * Math.PI * 2,
+      speed: Math.random() * 0.8 + 0.4
+    });
+  }
+
+  const groundY = H * 0.75;
+  let scrollOffset = 0;
+  const duration = 3000;
+  const startTime = performance.now();
+  let animId;
+
+  function drawFrame(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    scrollOffset = progress * W * 1.5;
+
+    ctx.clearRect(0, 0, W, H);
+
+    // Sky
+    const skyGrad = ctx.createLinearGradient(0, 0, 0, groundY);
+    if (isSnow) {
+      skyGrad.addColorStop(0, '#4a5568');
+      skyGrad.addColorStop(1, '#718096');
+    } else if (isRain) {
+      skyGrad.addColorStop(0, '#2d3748');
+      skyGrad.addColorStop(1, '#4a5568');
+    } else {
+      skyGrad.addColorStop(0, '#1a3a5a');
+      skyGrad.addColorStop(1, '#4a7a9a');
+    }
+    ctx.fillStyle = skyGrad;
+    ctx.fillRect(0, 0, W, groundY);
+
+    // Ground
+    const gndGrad = ctx.createLinearGradient(0, groundY, 0, H);
+    gndGrad.addColorStop(0, isSnow ? '#c0c8d0' : '#3a5a1a');
+    gndGrad.addColorStop(1, isSnow ? '#e0e4e8' : '#2a4010');
+    ctx.fillStyle = gndGrad;
+    ctx.fillRect(0, groundY, W, H - groundY);
+
+    // Trail line on ground
+    ctx.strokeStyle = '#8b7530';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([8, 4]);
+    ctx.beginPath();
+    ctx.moveTo(0, groundY + 5);
+    ctx.lineTo(W, groundY + 5);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Clouds
+    ctx.fillStyle = isRain || isSnow ? 'rgba(100,110,120,0.6)' : 'rgba(200,210,220,0.4)';
+    clouds.forEach(c => {
+      c.x -= c.speed;
+      if (c.x + c.w < 0) c.x = W + 20;
+      ctx.beginPath();
+      ctx.ellipse(c.x, c.y, c.w / 2, 12, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(c.x - c.w * 0.2, c.y - 5, c.w * 0.3, 10, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(c.x + c.w * 0.2, c.y - 3, c.w * 0.25, 9, 0, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Birds
+    if (!isRain && !isSnow) {
+      ctx.strokeStyle = '#2a2a3a';
+      ctx.lineWidth = 1.5;
+      birds.forEach(b => {
+        b.x -= b.speed;
+        b.phase += 0.05;
+        if (b.x < -20) b.x = W + 20;
+        const wingY = Math.sin(b.phase) * 3;
+        ctx.beginPath();
+        ctx.moveTo(b.x - 5, b.y + wingY);
+        ctx.quadraticCurveTo(b.x - 2, b.y - 3 + wingY, b.x, b.y);
+        ctx.quadraticCurveTo(b.x + 2, b.y - 3 + wingY, b.x + 5, b.y + wingY);
+        ctx.stroke();
+      });
+    }
+
+    // Trees scrolling
+    ctx.font = '24px serif';
+    ctx.textAlign = 'center';
+    trees.forEach(t => {
+      let tx = ((t.x - scrollOffset * 0.3) % (W + 40));
+      if (tx < -20) tx += W + 40;
+      const ty = groundY - 5;
+      const emoji = t.type === 'tree' ? '🌲' : '🌿';
+      ctx.globalAlpha = 0.7 * t.scale;
+      ctx.font = `${Math.floor(18 * t.scale + 6)}px serif`;
+      ctx.fillText(emoji, tx, ty);
+    });
+    ctx.globalAlpha = 1.0;
+
+    // The wagon convoy position
+    const wagonX = W * 0.35 + Math.sin(elapsed * 0.003) * 3;
+    const wagonY = groundY - 12;
+    const bounce = Math.sin(elapsed * 0.01) * 1.5;
+
+    // Oxen
+    ctx.font = '22px serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('🐂', wagonX - 45, wagonY + bounce);
+    ctx.fillText('🐂', wagonX - 25, wagonY - bounce * 0.5);
+
+    // Wagon
+    ctx.font = '26px serif';
+    ctx.fillText('🛒', wagonX, wagonY + bounce * 0.7);
+
+    // Group walking behind wagon
+    ctx.font = '18px serif';
+    groupEmojis.forEach((emoji, idx) => {
+      const px = wagonX + 25 + idx * 22;
+      const py = wagonY + 2 + Math.sin(elapsed * 0.008 + idx * 1.2) * 2;
+      ctx.fillText(emoji, px, py);
+    });
+
+    // Weather particles
+    if (isSnow || isRain) {
+      for (let s = 0; s < 3; s++) spawnParticle();
+    }
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.y > H + 10) { particles.splice(i, 1); continue; }
+      if (p.type === 'snow') {
+        ctx.fillStyle = 'rgba(255,255,255,0.8)';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        ctx.strokeStyle = 'rgba(150,180,220,0.6)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p.x + p.vx * 2, p.y + p.len);
+        ctx.stroke();
+      }
+    }
+
+    // Status text in canvas
+    ctx.fillStyle = '#d4a843';
+    ctx.font = '14px VT323, monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText(`${G.km} km`, 10, H - 8);
+    ctx.textAlign = 'right';
+    const nextLm = G.sigLandmark < LANDMARKS.length ? LANDMARKS[G.sigLandmark] : null;
+    if (nextLm) {
+      ctx.fillText(`Proximo: ${nextLm.nombre}`, W - 10, H - 8);
+    }
+
+    if (progress < 1) {
+      animId = requestAnimationFrame(drawFrame);
+    } else {
+      // Animation complete - transition
+      callback();
+    }
+  }
+
+  animId = requestAnimationFrame(drawFrame);
 }
 
 // --- PANTALLAS ---
@@ -518,8 +981,15 @@ function menuPrincipal() {
   G.climaActual=getClima(); G.turno++; updateHUD();
   if(G.turno%5===0) guardar();
 
+  if (G.acciones === undefined) G.acciones = 3;
+
   let html = `<div class="section-title">CAMPAMENTO</div>`;
   html += `<div style="margin-bottom:10px">Ritmo: <span class="info-text">${G.ritmo}</span> | Raciones: <span class="info-text">${G.raciones}</span></div>`;
+
+  // Actions display
+  const accionesClass = G.acciones <= 0 ? 'actions-zero' : 'actions-count';
+  html += `<div class="actions-display">Acciones disponibles: <span class="${accionesClass}">${G.acciones}/3</span></div>`;
+
   G.grupo.forEach(p => { html += personaHTML(p, true); });
 
   if (G.sigLandmark < LANDMARKS.length) {
@@ -530,14 +1000,15 @@ function menuPrincipal() {
 
   const l = lider();
   const puedeCoquetear = l && l.genero==='M' && mujeresVivas().filter(m=>!m.esHijo).length>0;
+  const sinAcciones = G.acciones <= 0;
 
   setChoices([
-    {text:"🛤️ Continuar viaje", action:viajar},
+    {text:"🛤️ Continuar viaje", action:()=>{ G.acciones=3; animacionViaje(()=>viajar()); }},
     {text:"⚙️ Cambiar ritmo/raciones", action:menuRitmo},
-    {text:"💤 Descansar", action:descansar},
-    {text:"🔫 Cazar", action:cazar, disabled:G.balas<=0},
-    {text:"👥 Hablar con el grupo", action:hablarGrupo},
-    {text:"💘 Relaciones romanticas", action:menuRomance, disabled:!puedeCoquetear},
+    {text:"💤 Descansar", action:()=>{ G.acciones=2; descansar(); }},
+    {text:`🔫 Cazar${sinAcciones?' (sin acciones)':''}`, action:()=>{ G.acciones--; cazar(); }, disabled:G.balas<=0||sinAcciones},
+    {text:`👥 Hablar con el grupo${sinAcciones?' (sin acciones)':''}`, action:()=>{ G.acciones--; hablarGrupo(); }, disabled:sinAcciones},
+    {text:`💘 Relaciones romanticas${sinAcciones?' (sin acciones)':''}`, action:()=>{ G.acciones--; menuRomance(); }, disabled:!puedeCoquetear||sinAcciones},
     {text:"🗺️ Ver mapa", action:verMapa},
     {text:"💾 Guardar partida", action:()=>{guardar();menuPrincipal();}},
   ]);
@@ -899,15 +1370,37 @@ function mostrarResultadoChat(persona,msg,tipo){
   setChoices([{text:"Seguir hablando",action:()=>interactuar(persona)},{text:"Volver al grupo",action:hablarGrupo}]);
 }
 
+// =============================================
+// FEATURE 1: Visual Map (replaces text list)
+// =============================================
+
 function verMapa(){
-  let html=`<div class="section-title">MAPA DEL SENDERO</div>`;
-  LANDMARKS.forEach((lm,i)=>{
-    let cls='future';if(lm.km<=G.km)cls='visited';if(i===G.sigLandmark)cls='current';
-    let extra='';if(lm.rio)extra+=' ~rio~';if(lm.fuerte)extra+=' [fuerte]';
-    html+=`<div class="map-landmark ${cls}">${lm.km} km - ${lm.nombre}${extra}</div>`;
-  });
-  html+=`<br><div class="info-text">Tu posicion: ${G.km} km</div>`;
-  setText(html);setChoices([{text:"Volver",action:menuPrincipal}]);
+  let html = `<div class="section-title">MAPA DEL SENDERO</div>`;
+  setText(html);
+
+  // Insert the canvas map
+  const mapWrapper = dibujarMapa();
+  $('text-area').appendChild(mapWrapper);
+
+  // Add a legend below the map
+  const legend = document.createElement('div');
+  legend.style.cssText = 'text-align:center;margin-top:8px;font-size:16px;color:#8b6914;';
+  legend.innerHTML = `<span style="color:#90ee90">● Visitado</span> &nbsp;
+    <span style="color:#ffd700">● Actual</span> &nbsp;
+    <span style="color:#6a6a6a">● Futuro</span> &nbsp;
+    <span style="color:#4090ff">● Rio</span> &nbsp;
+    <span style="color:#8a7a60">■ Fuerte</span> &nbsp;
+    <span style="color:#8a8a8a">▲ Montana</span>`;
+  $('text-area').appendChild(legend);
+
+  // Position info
+  const posInfo = document.createElement('div');
+  posInfo.style.cssText = 'text-align:center;margin-top:8px;';
+  posInfo.className = 'info-text';
+  posInfo.textContent = `Tu posicion: ${G.km} km / 2800 km`;
+  $('text-area').appendChild(posInfo);
+
+  setChoices([{text:"Volver",action:menuPrincipal}]);
 }
 
 // --- VIAJAR ---
