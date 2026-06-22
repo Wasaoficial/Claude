@@ -288,9 +288,22 @@ function generoLabel(p) {
 }
 
 function updateHUD() {
+  if (G.diaInicio===undefined || G.grupo===undefined || !G.grupo.length) {
+    $('hud-date').textContent = '1848';
+    $('hud-weather').textContent = '--';
+    $('hud-km').textContent = '0 / 2800 km';
+    $('hud-food').textContent = '0';
+    $('hud-bullets').textContent = '0';
+    $('hud-clothes').textContent = '0';
+    $('hud-oxen').textContent = '0';
+    $('hud-parts').textContent = '0';
+    $('hud-money').textContent = '0';
+    $('progress-fill').style.width = '0%';
+    return;
+  }
   const {mes,dia} = getFecha();
   $('hud-date').textContent = `${dia} de ${mes}, 1848`;
-  $('hud-weather').textContent = G.climaActual;
+  $('hud-weather').textContent = G.climaActual || '--';
   $('hud-km').textContent = `${G.km} / 2800 km`;
   $('hud-food').textContent = G.comida;
   $('hud-bullets').textContent = G.balas;
