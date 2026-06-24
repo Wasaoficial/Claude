@@ -232,6 +232,64 @@ for i, charData in ipairs(GameConfig.Characters) do
 	end)
 end
 
+-- Botón JUGAR
+local playButton = Instance.new("TextButton")
+playButton.Name = "PlayButton"
+playButton.Size = UDim2.new(0, 220, 0, 55)
+playButton.Position = UDim2.new(0.5, -110, 1, -120)
+playButton.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
+playButton.Text = "JUGAR"
+playButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+playButton.TextSize = 28
+playButton.Font = Enum.Font.GothamBlack
+playButton.Parent = charSelectScreen
+
+local playCorner = Instance.new("UICorner")
+playCorner.CornerRadius = UDim.new(0, 12)
+playCorner.Parent = playButton
+
+-- Botón PRACTICA (jugar solo)
+local practiceButton = Instance.new("TextButton")
+practiceButton.Name = "PracticeButton"
+practiceButton.Size = UDim2.new(0, 220, 0, 40)
+practiceButton.Position = UDim2.new(0.5, -110, 1, -60)
+practiceButton.BackgroundColor3 = Color3.fromRGB(80, 80, 120)
+practiceButton.Text = "PRACTICA (Solo)"
+practiceButton.TextColor3 = Color3.fromRGB(200, 200, 200)
+practiceButton.TextSize = 16
+practiceButton.Font = Enum.Font.GothamBold
+practiceButton.Parent = charSelectScreen
+
+local practiceCorner = Instance.new("UICorner")
+practiceCorner.CornerRadius = UDim.new(0, 10)
+practiceCorner.Parent = practiceButton
+
+-- Status label
+local statusLabel = Instance.new("TextLabel")
+statusLabel.Name = "StatusLabel"
+statusLabel.Size = UDim2.new(1, 0, 0, 30)
+statusLabel.Position = UDim2.new(0, 0, 1, -155)
+statusLabel.BackgroundTransparency = 1
+statusLabel.Text = ""
+statusLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
+statusLabel.TextSize = 14
+statusLabel.Font = Enum.Font.GothamMedium
+statusLabel.Parent = charSelectScreen
+
+local ReadyEvent = Events:WaitForChild("PlayerReady")
+
+playButton.MouseButton1Click:Connect(function()
+	ReadyEvent:FireServer("casual")
+	statusLabel.Text = "Buscando partida... esperando jugadores"
+	playButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+	playButton.Text = "BUSCANDO..."
+end)
+
+practiceButton.MouseButton1Click:Connect(function()
+	ReadyEvent:FireServer("practice")
+	statusLabel.Text = "Entrando a modo práctica..."
+end)
+
 -- ============================================
 -- PANTALLA DE RESULTADO
 -- ============================================
@@ -326,6 +384,9 @@ MatchEndEvent.OnClientEvent:Connect(function(winnerName)
 	task.delay(5, function()
 		resultScreen.Visible = false
 		charSelectScreen.Visible = true
+		playButton.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
+		playButton.Text = "JUGAR"
+		statusLabel.Text = ""
 	end)
 end)
 

@@ -20,6 +20,7 @@ local eventNames = {
 	"RankedMatchStart",
 	"RankedMatchEnd",
 	"RankedUpdate",
+	"PlayerReady",
 }
 
 for _, name in ipairs(eventNames) do

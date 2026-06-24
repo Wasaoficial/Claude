@@ -27,22 +27,6 @@ local MatchState = {
 
 local PlayerSelections = {}
 local Cooldowns = {}
-local LobbyPlayers = {}
-
--- Lobby
-local function AddToLobby(player)
-	LobbyPlayers[player] = true
-end
-
-local function RemoveFromLobby(player)
-	LobbyPlayers[player] = nil
-end
-
-local function GetLobbyCount()
-	local count = 0
-	for _ in pairs(LobbyPlayers) do count = count + 1 end
-	return count
-end
 
 -- Selección de personaje
 SelectCharacterEvent.OnServerEvent:Connect(function(player, characterIndex)
@@ -154,10 +138,6 @@ local function EndMatch(winner)
 	MatchEndEvent:FireAllClients(winner and winner.Name or "Nadie")
 
 	task.wait(5)
-
-	for player in pairs(MatchState.Players) do
-		AddToLobby(player)
-	end
 	MatchState.Players = {}
 end
 
@@ -177,7 +157,7 @@ local function StartMatch(players, mode)
 	MatchState.InProgress = true
 	MatchState.Mode = mode
 	MatchState.Arena = math.random(1, #GameConfig.Arenas)
-	MatchState.Timer = GameConfig.ROUND_TIME
+	MatchState.Timer = mode == "Practice" and 600 or GameConfig.ROUND_TIME
 	MatchState.Players = {}
 
 	local arena = GameConfig.Arenas[MatchState.Arena]
@@ -210,8 +190,13 @@ local function StartMatch(players, mode)
 			ComboSystem.CleanupExpired()
 
 			local alive = GetAlivePlayers()
-			if #alive <= 1 then
+			if MatchState.Mode ~= "Practice" and #alive <= 1 then
 				EndMatch(alive[1])
+				return
+			end
+
+			if MatchState.Mode == "Practice" and #alive == 0 then
+				EndMatch(nil)
 				return
 			end
 
@@ -236,26 +221,41 @@ local function StartMatch(players, mode)
 	end)
 end
 
+-- Ready system
+local ReadyPlayers = {}
+local ReadyEvent = Events:WaitForChild("PlayerReady")
+
+ReadyEvent.OnServerEvent:Connect(function(player, mode)
+	if mode == "practice" then
+		if not MatchState.InProgress then
+			StartMatch({player}, "Practice")
+		end
+	elseif mode == "casual" then
+		ReadyPlayers[player] = true
+	end
+end)
+
 -- Matchmaking loop
 task.spawn(function()
 	while true do
-		task.wait(3)
+		task.wait(2)
 
 		if not MatchState.InProgress then
-			local lobbyList = {}
-			for player in pairs(LobbyPlayers) do
-				if player.Parent then
-					table.insert(lobbyList, player)
+			local readyList = {}
+			for p in pairs(ReadyPlayers) do
+				if p.Parent then
+					table.insert(readyList, p)
 				end
 			end
 
-			if #lobbyList >= 2 then
-				-- 1v1 si hay 2-3, FFA si hay 4+
-				local mode = #lobbyList >= 4 and "FFA" or "1v1"
-				local count = math.min(#lobbyList, GameConfig.MAX_PLAYERS_PER_MATCH)
+			if #readyList >= 2 then
+				local mode = #readyList >= 4 and "FFA" or "1v1"
+				local count = math.min(#readyList, GameConfig.MAX_PLAYERS_PER_MATCH)
 				local matchPlayers = {}
 				for i = 1, count do
-					table.insert(matchPlayers, lobbyList[i])
+					local p = readyList[i]
+					table.insert(matchPlayers, p)
+					ReadyPlayers[p] = nil
 				end
 				StartMatch(matchPlayers, mode)
 			end
@@ -265,12 +265,11 @@ end)
 
 -- Player join/leave
 Players.PlayerAdded:Connect(function(player)
-	AddToLobby(player)
 	PlayerSelections[player] = 1
 end)
 
 Players.PlayerRemoving:Connect(function(player)
-	RemoveFromLobby(player)
+	ReadyPlayers[player] = nil
 	PlayerSelections[player] = nil
 	if MatchState.Players[player] then
 		MatchState.Players[player] = nil
