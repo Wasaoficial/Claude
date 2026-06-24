@@ -1,0 +1,139 @@
+=====================================================
+  RIVALS CLONE - GUIA DE INSTALACION EN ROBLOX STUDIO
+=====================================================
+
+PASO 1: ABRIR ROBLOX STUDIO
+- Crea un nuevo juego (Baseplate o vacío)
+- Elimina la Baseplate si hay una
+
+PASO 2: CREAR LAS CARPETAS DE EVENTOS
+- Primero, copia el archivo: SetupEvents.lua
+- En Roblox Studio, ve a ServerScriptService
+- Click derecho > Insert Object > Script
+- Pega el contenido de SetupEvents.lua
+- IMPORTANTE: Este script debe ejecutarse PRIMERO
+
+PASO 3: COPIAR LOS MODULOS (ReplicatedStorage)
+- En ReplicatedStorage, click derecho > Insert Object > Folder > llamalo "Modules"
+- Dentro de Modules, crea un ModuleScript llamado "GameConfig"
+  -> Pega el contenido de ReplicatedStorage/Modules/GameConfig.lua
+- Dentro de Modules, crea un ModuleScript llamado "CombatSystem"
+  -> Pega el contenido de ReplicatedStorage/Modules/CombatSystem.lua
+
+PASO 4: COPIAR LOS SCRIPTS DEL SERVIDOR (ServerScriptService)
+Crea un Script (NO LocalScript) para cada uno:
+- SetupEvents.lua        (YA LO HICISTE EN PASO 2)
+- MatchManager.lua
+- DataManager.lua
+- ShopManager.lua
+- ArenaBuilder.lua
+- LeaderboardManager.lua
+- RankedManager.lua
+
+PASO 5: COPIAR SCRIPTS DEL CLIENTE
+- En StarterPlayerScripts:
+  -> Crea un LocalScript llamado "CombatClient"
+  -> Pega el contenido de StarterPlayerScripts/CombatClient.lua
+
+- En StarterGui:
+  -> Crea un LocalScript llamado "MainHUD"
+  -> Pega el contenido de StarterGui/MainHUD.lua
+  -> Crea un LocalScript llamado "ShopGUI"
+  -> Pega el contenido de StarterGui/ShopGUI.lua
+  -> Crea un LocalScript llamado "RankedGUI"
+  -> Pega el contenido de StarterGui/RankedGUI.lua
+  -> Crea un LocalScript llamado "ComboHUD"
+  -> Pega el contenido de StarterGui/ComboHUD.lua
+
+PASO 6: COPIAR MODULO DE COMBOS
+- Dentro de ReplicatedStorage/Modules, crea un ModuleScript llamado "ComboSystem"
+  -> Pega el contenido de ReplicatedStorage/Modules/ComboSystem.lua
+
+PASO 7: CONTROLES DEL JUEGO
+- Click izquierdo / M  = Golpe ligero
+- Click derecho / N    = Golpe pesado
+- Q                    = Especial arriba (lanzar)
+- E                    = Especial lateral
+- R                    = Especial abajo (spike)
+- Click izq en aire    = Ataque aéreo
+- En móvil aparecen botones táctiles automáticamente
+
+=====================================================
+  COMO CONSEGUIR LO QUE YO NO PUEDO HACER
+=====================================================
+
+MODELOS 3D Y PERSONAJES:
+1. TOOLBOX DE ROBLOX (GRATIS):
+   - En Roblox Studio > View > Toolbox
+   - Busca "fighter character" o "anime character"
+   - Hay miles de modelos gratis que podes usar
+
+2. ROBLOX MARKETPLACE:
+   - https://create.roblox.com/store
+   - Busca modelos de personajes
+
+3. BLENDER (GRATIS):
+   - Descarga Blender (blender.org)
+   - Hay tutoriales en YouTube: "como hacer personaje roblox blender"
+   - Exportas como .fbx y lo importas en Studio
+
+4. FIVERR / COMISIONES:
+   - Busca "roblox 3d modeler" en Fiverr
+   - Precio: $5-50 por personaje
+   - Tambien busca en Twitter: #RobloxDev #RobloxCommissions
+
+ANIMACIONES:
+1. ANIMATION EDITOR DE ROBLOX (GRATIS):
+   - En Studio: Plugins > Animation Editor
+   - Tutorial: busca "roblox animation editor tutorial" en YouTube
+
+2. MOON ANIMATOR (PLUGIN GRATIS):
+   - Mucho más fácil que el editor default
+   - Busca "Moon Animator" en Plugins de Roblox
+
+3. MIXAMO (GRATIS):
+   - mixamo.com - tiene animaciones de pelea pre-hechas
+   - Las exportas y las importas en Roblox
+
+MAPAS / ARENAS:
+1. El script ArenaBuilder.lua ya crea arenas básicas con partes
+2. Para mapas mejores:
+   - Usa el terrain editor de Roblox Studio
+   - O busca "arena" / "fighting map" en el Toolbox
+   - O contrata a alguien en Fiverr
+
+EFECTOS Y PARTICULAS:
+1. En Studio: Insert > ParticleEmitter
+2. Plugin recomendado: "VFX Creator" (buscar en plugins)
+3. Tutorial: "roblox particle effects tutorial" en YouTube
+
+SONIDOS:
+1. Roblox tiene una librería de sonidos
+2. freesound.org tiene efectos gratis
+3. En Studio: inserta un Sound object y ponle el AssetId
+
+=====================================================
+  ESTRUCTURA DEL PROYECTO
+=====================================================
+
+RivalsGame/
+├── ServerScriptService/
+│   ├── SetupEvents.lua          (Crea los RemoteEvents)
+│   ├── MatchManager.lua         (Lógica de partidas y combate)
+│   ├── DataManager.lua          (Guardado de datos - DataStore)
+│   ├── ShopManager.lua          (Tienda de personajes)
+│   ├── ArenaBuilder.lua         (Genera las arenas)
+│   ├── LeaderboardManager.lua   (Tabla de clasificación)
+│   └── RankedManager.lua        (Sistema ranked con ELO)
+├── ReplicatedStorage/
+│   └── Modules/
+│       ├── GameConfig.lua       (Config de personajes, arenas y ranked)
+│       ├── CombatSystem.lua     (Cálculos de combate/knockback)
+│       └── ComboSystem.lua      (Sistema de combos)
+├── StarterGui/
+│   ├── MainHUD.lua              (HUD de pelea + selección personaje)
+│   ├── ShopGUI.lua              (Interfaz de tienda)
+│   ├── RankedGUI.lua            (Interfaz ranked - cola, VS, resultados)
+│   └── ComboHUD.lua             (Contador de combos visual)
+└── StarterPlayerScripts/
+    └── CombatClient.lua         (Input del jugador - teclado/móvil)
